@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @organizacao.slug %>
+</p>
+
+<p>
+  <strong>Razao social:</strong>
+  <%= @organizacao.razao_social %>
+</p>
+
+<p>
+  <strong>Cnpj:</strong>
+  <%= @organizacao.cnpj %>
+</p>
+
+<%= link_to 'Edit', edit_organizacao_path(@organizacao) %> |
+<%= link_to 'Back', organizacoes_path %>
