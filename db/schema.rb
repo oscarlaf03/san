@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_204224) do
+ActiveRecord::Schema.define(version: 2021_01_01_220916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_01_01_204224) do
     t.bigint "organizacao_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "titular_id"
     t.index ["email"], name: "index_beneficiarios_on_email", unique: true
     t.index ["organizacao_id"], name: "index_beneficiarios_on_organizacao_id"
     t.index ["reset_password_token"], name: "index_beneficiarios_on_reset_password_token", unique: true
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_01_01_204224) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "beneficiarios", "beneficiarios", column: "titular_id"
   add_foreign_key "organizacao_planos", "organizacoes"
   add_foreign_key "organizacao_planos", "planos"
   add_foreign_key "planos", "aseguradoras"
