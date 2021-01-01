@@ -62,6 +62,10 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem "rspec-rails", group: [:development, :test]
-gem 'factory_bot_rails' , group: [:development, :test]
+
+group :test, :development do 
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  gem "rspec-rails"
+  gem 'factory_bot_rails'
+end
 
