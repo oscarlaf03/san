@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :planos
   resources :organizacoes
   resources :aseguradoras
   devise_for :users

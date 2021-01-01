@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @plano.nome %>
+</p>
+
+<p>
+  <strong>Premio mensal:</strong>
+  <%= @plano.premio_mensal %>
+</p>
+
+<p>
+  <strong>Papel:</strong>
+  <%= @plano.papel %>
+</p>
+
+<p>
+  <strong>Acomodacao:</strong>
+  <%= @plano.acomodacao %>
+</p>
+
+<p>
+  <strong>Aseguradora:</strong>
+  <%= @plano.aseguradora_id %>
+</p>
+
+<%= link_to 'Edit', edit_plano_path(@plano) %> |
+<%= link_to 'Back', planos_path %>

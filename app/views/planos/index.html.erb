@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Planos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Premio mensal</th>
+      <th>Papel</th>
+      <th>Acomodacao</th>
+      <th>Aseguradora</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @planos.each do |plano| %>
+      <tr>
+        <td><%= plano.nome %></td>
+        <td><%= plano.premio_mensal %></td>
+        <td><%= plano.papel %></td>
+        <td><%= plano.acomodacao %></td>
+        <td><%= plano.aseguradora_id %></td>
+        <td><%= link_to 'Show', plano %></td>
+        <td><%= link_to 'Edit', edit_plano_path(plano) %></td>
+        <td><%= link_to 'Destroy', plano, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plano', new_plano_path %>

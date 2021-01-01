@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_161347) do
+ActiveRecord::Schema.define(version: 2021_01_01_185337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "aseguradoras", force: :cascade do |t|
+    t.string "cnpj"
+    t.string "razao_social"
+    t.string "nome"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "organizacao_planos", force: :cascade do |t|
+    t.bigint "plano_id", null: false
+    t.bigint "organizacao_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organizacao_id"], name: "index_organizacao_planos_on_organizacao_id"
+    t.index ["plano_id"], name: "index_organizacao_planos_on_plano_id"
+  end
 
   create_table "organizacoes", force: :cascade do |t|
     t.string "slug"
@@ -21,6 +38,17 @@ ActiveRecord::Schema.define(version: 2021_01_01_161347) do
     t.string "cnpj"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "planos", force: :cascade do |t|
+    t.string "nome"
+    t.integer "premio_mensal"
+    t.string "papel"
+    t.string "acomodacao"
+    t.bigint "aseguradora_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["aseguradora_id"], name: "index_planos_on_aseguradora_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +65,7 @@ ActiveRecord::Schema.define(version: 2021_01_01_161347) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "organizacao_planos", "organizacoes"
+  add_foreign_key "organizacao_planos", "planos"
+  add_foreign_key "planos", "aseguradoras"
 end
