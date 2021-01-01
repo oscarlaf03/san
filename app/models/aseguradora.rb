@@ -1,0 +1,2 @@
+class Aseguradora < ApplicationRecord
+end
