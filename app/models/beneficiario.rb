@@ -18,7 +18,6 @@ class Beneficiario < ApplicationRecord
     self.titular ? 'dependente' : 'titular'
   end
 
-
   private
 
   def titular_nao_pode_ter_titular

@@ -15,7 +15,6 @@ RSpec.describe User, type: :mopdel do
 
   context "Roles" do
 
-
     it "tem um role para org determinada" do
       user = create(:user)
       org = create(:organizacao)
