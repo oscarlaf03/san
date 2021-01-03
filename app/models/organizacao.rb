@@ -1,4 +1,5 @@
 class Organizacao < ApplicationRecord
+  resourcify
   has_many :users
   has_many :beneficiarios
   has_many :organizacao_planos

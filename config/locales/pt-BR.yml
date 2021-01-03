@@ -203,6 +203,7 @@ pt-BR:
         unconfirmed_email: E-mail não confirmado
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
+        organizacao: organizacao
       beneficiario:
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
