@@ -2,6 +2,8 @@ class Beneficiario < ApplicationRecord
   resourcify
   rolify
 
+  validate :titular_nao_pode_ter_titular
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,5 +16,14 @@ class Beneficiario < ApplicationRecord
 
   def perfil
     self.titular ? 'dependente' : 'titular'
+  end
+
+
+  private
+
+  def titular_nao_pode_ter_titular
+    if self.titular && self.titular.titular
+      errors.add(:titular, "Um titular não pode apontar a outro titular")
+    end
   end
 end

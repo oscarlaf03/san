@@ -47,7 +47,8 @@ RSpec.describe Beneficiario, type: :model do
     it "Falha para tornar dependente a um titular" do
       titular= beneficiario_with_dependentes
       dep = titular.dependentes.sample
-      expect(titular.update(titular: dep)).to raise_error
+      titular.update(titular: dep)
+      expect(titular.valid?).to be(false)
     end
   end
 end
