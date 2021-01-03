@@ -38,10 +38,16 @@ RSpec.describe Beneficiario, type: :model do
       ).to be(true)
     end
 
-    it "Responde  a perfil corretamente" do
+    it "Responde a perfil corretamente" do
       titular = beneficiario_with_dependentes
       dependente = titular.dependentes.sample
       expect(titular.perfil == 'titular' && dependente.perfil == 'dependente').to be(true)
+    end
+
+    it "Falha para tornar dependente a um titular" do
+      titular= beneficiario_with_dependentes
+      dep = titular.dependentes.sample
+      expect(titular.update(titular: dep)).to raise_error
     end
   end
 end
