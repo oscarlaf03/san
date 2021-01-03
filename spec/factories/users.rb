@@ -4,6 +4,6 @@ FactoryBot.define do
     email { Faker::Internet.safe_email}
     password { Faker::Internet.password(min_length: 10, max_length: 20)}
     organizacao
-    
+
   end
 end
