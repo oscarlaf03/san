@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_193016) do
+ActiveRecord::Schema.define(version: 2021_01_03_202051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,14 @@ ActiveRecord::Schema.define(version: 2021_01_03_193016) do
     t.index ["email"], name: "index_beneficiarios_on_email", unique: true
     t.index ["organizacao_id"], name: "index_beneficiarios_on_organizacao_id"
     t.index ["reset_password_token"], name: "index_beneficiarios_on_reset_password_token", unique: true
+  end
+
+  create_table "beneficiarios_roles", force: :cascade do |t|
+    t.bigint "beneficiario_id"
+    t.bigint "role_id"
+    t.index ["beneficiario_id", "role_id"], name: "index_beneficiarios_roles_on_beneficiario_id_and_role_id"
+    t.index ["beneficiario_id"], name: "index_beneficiarios_roles_on_beneficiario_id"
+    t.index ["role_id"], name: "index_beneficiarios_roles_on_role_id"
   end
 
   create_table "organizacao_planos", force: :cascade do |t|
