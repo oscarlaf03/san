@@ -32,6 +32,7 @@ gem 'devise'
 
 gem "rolify"
 
+gem "pundit"
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
