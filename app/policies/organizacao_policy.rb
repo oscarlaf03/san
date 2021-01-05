@@ -14,5 +14,6 @@ class OrganizacaoPolicy < ApplicationPolicy
     false
   end
 
+  
 
 end
