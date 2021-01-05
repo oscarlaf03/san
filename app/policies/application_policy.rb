@@ -34,6 +34,27 @@ class ApplicationPolicy
     false
   end
 
+  def internal_roles
+    [:backoffice,:internal]
+  end
+
+  def only_internal_users
+    internal_roles.each do |role|
+      return true if user.has_role? role
+    end
+    false
+  end
+
+
+  def only_record_members(record=@record)
+    record_name = record.model_name.param_key.to_sym
+    user.send(record_name) == record
+  end
+
+  def internal_users_or_record_members(record=@record)
+    only_internal_users || only_record_members(record)
+  end
+
   class Scope
     attr_reader :user, :scope
 

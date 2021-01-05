@@ -5,15 +5,21 @@ class OrganizacaoPolicy < ApplicationPolicy
     end
   end
 
-  def update?
-    user.organizacao == record  or user.has_role? :backoffice
+  def index?
+    only_internal_users
   end
 
+  def create?
+    only_internal_users
+  end
+
+  def update?
+    internal_users_or_record_members
+  end
 
   def destroy?
     false
   end
 
-  
 
 end
