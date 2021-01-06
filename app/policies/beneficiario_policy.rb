@@ -6,16 +6,15 @@ class BeneficiarioPolicy < ApplicationPolicy
   end
 
   def index?
-    internal_users_or_record_members(record.organizacao)
+    internal_users_or_record_members_users(record.organizacao)
   end
 
-
   def create?
-    true
+    only_internal_users
   end
 
   def update?
-    internal_users_or_record_members(record.organizacao)
+    only_internal_users
   end
 
 end

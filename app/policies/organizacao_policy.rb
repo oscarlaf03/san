@@ -14,7 +14,7 @@ class OrganizacaoPolicy < ApplicationPolicy
   end
 
   def update?
-    internal_users_or_record_members
+    internal_users_or_record_members_users
   end
 
   def destroy?

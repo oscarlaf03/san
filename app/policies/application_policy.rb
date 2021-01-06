@@ -39,6 +39,7 @@ class ApplicationPolicy
   end
 
   def only_internal_users
+    return false if !user.kind_of?(User)
     internal_roles.each do |role|
       return true if user.has_role? role
     end
@@ -51,8 +52,19 @@ class ApplicationPolicy
     user.send(record_name) == record
   end
 
+  def only_record_members_users(record=@record)
+    return false if !user.kind_of?(User)
+    reject_non_user_models
+    only_record_members(record=@record)
+  end
+
+
   def internal_users_or_record_members(record=@record)
     only_internal_users || only_record_members(record)
+  end
+
+  def internal_users_or_record_members_users(record=@record)
+    only_internal_users || only_record_members_users(record)
   end
 
   class Scope

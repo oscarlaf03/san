@@ -35,9 +35,14 @@ RSpec.describe OrganizacaoPolicy, type: :policy do
       expect(subject).to  permit(user, create(:organizacao))
     end
 
-    it "Permite edição da org por cliente" do
+    it "Permite edição da org por User que pertence a org" do
       user = user_with_organizacao
       expect(subject).to permit(user, user.organizacao)
+    end
+
+    it "Rejeita edição da org por Beneficiario que pertence a org" do
+      beneficiario = create(:beneficiario)
+      expect(subject).not_to permit(beneficiario, beneficiario.organizacao)
     end
 
   end
