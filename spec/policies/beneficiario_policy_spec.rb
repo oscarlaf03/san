@@ -25,6 +25,12 @@ RSpec.describe BeneficiarioPolicy, type: :policy do
       expect(subject).to permit(user,bene)
     end
 
+    it "rejeita edicão de beneficiario de organizacao diferente ao do user" do
+      user = user_with_organizacao
+      bene = create(:beneficiario)
+      expect(subject).not_to permit(user,bene)
+    end
+
   end
 
   permissions :destroy? do

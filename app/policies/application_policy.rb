@@ -45,8 +45,8 @@ class ApplicationPolicy
     false
   end
 
-
   def only_record_members(record=@record)
+    return false if record.nil?
     record_name = record.model_name.param_key.to_sym
     user.send(record_name) == record
   end

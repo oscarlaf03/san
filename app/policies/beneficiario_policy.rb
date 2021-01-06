@@ -5,6 +5,11 @@ class BeneficiarioPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    internal_users_or_record_members(record.organizacao)
+  end
+
+
   def create?
     true
   end
