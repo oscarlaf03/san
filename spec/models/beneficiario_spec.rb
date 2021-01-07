@@ -6,13 +6,21 @@ RSpec.describe Beneficiario, type: :model do
 
   context "Relationships" do
 
-    it"Tiene un plano through" do
+    it"Tem um plano through beneficio" do
       org = create(:organizacao)
       plano = create(:plano)
       org_plano = create(:organizacao_plano, organizacao: org, plano: plano)
       beneficiario = create(:beneficiario, organizacao: org)
       beneficio = create(:beneficio,beneficiario: beneficiario, organizacao_plano: org_plano)
       expect(beneficiario.plano == plano).to be true
+    end
+
+    it "Tem uma condicao through beneficio" do
+      beneficiario = create(:beneficiario)
+      condicao = create(:condicao)
+      beneficio = create(:beneficio,beneficiario: beneficiario)
+      create(:beneficio_condicao, beneficio:beneficio, condicao: condicao)
+      expect(beneficio.condicao == condicao).to be true
     end
   end
 

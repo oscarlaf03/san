@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :beneficio do
-    beneficiario { nil }
-    organizacao_plano { nil }
+    beneficiario
+    organizacao_plano
   end
 end
