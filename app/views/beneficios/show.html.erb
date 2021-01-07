@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Beneficiario:</strong>
+  <%= @beneficio.Beneficiario_id %>
+</p>
+
+<p>
+  <strong>Organizacaoplano:</strong>
+  <%= @beneficio.OrganizacaoPlano_id %>
+</p>
+
+<%= link_to 'Edit', edit_beneficio_path(@beneficio) %> |
+<%= link_to 'Back', beneficios_path %>

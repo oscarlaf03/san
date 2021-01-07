@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Beneficios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Beneficiario</th>
+      <th>Organizacaoplano</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @beneficios.each do |beneficio| %>
+      <tr>
+        <td><%= beneficio.Beneficiario_id %></td>
+        <td><%= beneficio.OrganizacaoPlano_id %></td>
+        <td><%= link_to 'Show', beneficio %></td>
+        <td><%= link_to 'Edit', edit_beneficio_path(beneficio) %></td>
+        <td><%= link_to 'Destroy', beneficio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Beneficio', new_beneficio_path %>

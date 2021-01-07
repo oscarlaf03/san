@@ -1,7 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Beneficiario, type: :model do
-  context "Relationships" do 
+
+
+
+  context "Relationships" do
+
+    it"Tiene un plano through" do
+      org = create(:organizacao)
+      plano = create(:plano)
+      org_plano = create(:organizacao_plano, organizacao: org, plano: plano)
+      beneficiario = create(:beneficiario, organizacao: org)
+      beneficio = create(:beneficio,beneficiario: beneficiario, organizacao_plano: org_plano)
+      expect(beneficiario.plano == plano).to be true
+    end
+  end
+
+
+
+
+  context "Titular e dependetes" do 
     it "Pertence a uma organizacao" do
     org = create(:organizacao)
     b = create(:beneficiario, organizacao: org)
@@ -21,6 +39,8 @@ RSpec.describe Beneficiario, type: :model do
     end
 
   end
+
+
 
   context "Beneficiario Roles" do
     it "Tem role de de titular e de dependente" do

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :beneficios
   resources :seguradoras
   resources :planos
   resources :organizacoes

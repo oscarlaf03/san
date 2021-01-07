@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_010958) do
+ActiveRecord::Schema.define(version: 2021_01_07_022936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2021_01_07_010958) do
     t.index ["beneficiario_id", "role_id"], name: "index_beneficiarios_roles_on_beneficiario_id_and_role_id"
     t.index ["beneficiario_id"], name: "index_beneficiarios_roles_on_beneficiario_id"
     t.index ["role_id"], name: "index_beneficiarios_roles_on_role_id"
+  end
+
+  create_table "beneficios", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "beneficiario_id"
+    t.bigint "organizacao_plano_id"
+    t.index ["beneficiario_id"], name: "index_beneficios_on_beneficiario_id"
+    t.index ["organizacao_plano_id"], name: "index_beneficios_on_organizacao_plano_id"
   end
 
   create_table "organizacao_planos", force: :cascade do |t|
