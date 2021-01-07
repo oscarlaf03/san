@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :plano do
-    nome { "MyString" }
+    nome { Faker::Company.profession }
     premio_mensal { "" }
-    papel { "MyString" }
-    acomodacao { "MyString" }
-    aseguradora
+    papel { Faker::Company.buzzword }
+    acomodacao { Faker::Company.catch_phrase }
+    seguradora
   end
 end

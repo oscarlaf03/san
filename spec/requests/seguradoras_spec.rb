@@ -12,8 +12,8 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/aseguradoras", type: :request do
-  # Aseguradora. As you add validations to Aseguradora, be sure to
+RSpec.describe "/seguradoras", type: :request do
+  # Seguradora. As you add validations to Seguradora, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -25,58 +25,58 @@ RSpec.describe "/aseguradoras", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Aseguradora.create! valid_attributes
-      get aseguradoras_url
+      Seguradora.create! valid_attributes
+      get seguradoras_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      aseguradora = Aseguradora.create! valid_attributes
-      get aseguradora_url(aseguradora)
+      seguradora = Seguradora.create! valid_attributes
+      get seguradora_url(seguradora)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_aseguradora_url
+      get new_seguradora_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      aseguradora = Aseguradora.create! valid_attributes
-      get edit_aseguradora_url(aseguradora)
+      seguradora = Seguradora.create! valid_attributes
+      get edit_seguradora_url(seguradora)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Aseguradora" do
+      it "creates a new Seguradora" do
         expect {
-          post aseguradoras_url, params: { aseguradora: valid_attributes }
-        }.to change(Aseguradora, :count).by(1)
+          post seguradoras_url, params: { seguradora: valid_attributes }
+        }.to change(Seguradora, :count).by(1)
       end
 
-      it "redirects to the created aseguradora" do
-        post aseguradoras_url, params: { aseguradora: valid_attributes }
-        expect(response).to redirect_to(aseguradora_url(Aseguradora.last))
+      it "redirects to the created seguradora" do
+        post seguradoras_url, params: { seguradora: valid_attributes }
+        expect(response).to redirect_to(seguradora_url(Seguradora.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Aseguradora" do
+      it "does not create a new Seguradora" do
         expect {
-          post aseguradoras_url, params: { aseguradora: invalid_attributes }
-        }.to change(Aseguradora, :count).by(0)
+          post seguradoras_url, params: { seguradora: invalid_attributes }
+        }.to change(Seguradora, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post aseguradoras_url, params: { aseguradora: invalid_attributes }
+        post seguradoras_url, params: { seguradora: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -88,42 +88,42 @@ RSpec.describe "/aseguradoras", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested aseguradora" do
-        aseguradora = Aseguradora.create! valid_attributes
-        patch aseguradora_url(aseguradora), params: { aseguradora: new_attributes }
-        aseguradora.reload
+      it "updates the requested seguradora" do
+        seguradora = Seguradora.create! valid_attributes
+        patch seguradora_url(seguradora), params: { seguradora: new_attributes }
+        seguradora.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the aseguradora" do
-        aseguradora = Aseguradora.create! valid_attributes
-        patch aseguradora_url(aseguradora), params: { aseguradora: new_attributes }
-        aseguradora.reload
-        expect(response).to redirect_to(aseguradora_url(aseguradora))
+      it "redirects to the seguradora" do
+        seguradora = Seguradora.create! valid_attributes
+        patch seguradora_url(seguradora), params: { seguradora: new_attributes }
+        seguradora.reload
+        expect(response).to redirect_to(seguradora_url(seguradora))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        aseguradora = Aseguradora.create! valid_attributes
-        patch aseguradora_url(aseguradora), params: { aseguradora: invalid_attributes }
+        seguradora = Seguradora.create! valid_attributes
+        patch seguradora_url(seguradora), params: { seguradora: invalid_attributes }
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested aseguradora" do
-      aseguradora = Aseguradora.create! valid_attributes
+    it "destroys the requested seguradora" do
+      seguradora = Seguradora.create! valid_attributes
       expect {
-        delete aseguradora_url(aseguradora)
-      }.to change(Aseguradora, :count).by(-1)
+        delete seguradora_url(seguradora)
+      }.to change(Seguradora, :count).by(-1)
     end
 
-    it "redirects to the aseguradoras list" do
-      aseguradora = Aseguradora.create! valid_attributes
-      delete aseguradora_url(aseguradora)
-      expect(response).to redirect_to(aseguradoras_url)
+    it "redirects to the seguradoras list" do
+      seguradora = Seguradora.create! valid_attributes
+      delete seguradora_url(seguradora)
+      expect(response).to redirect_to(seguradoras_url)
     end
   end
 end

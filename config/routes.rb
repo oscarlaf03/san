@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :seguradoras
   resources :planos
   resources :organizacoes
-  resources :aseguradoras
   devise_for :users, path: 'u', controllers: {
     sessions: "users/sessions",
     passwords: "users/passwords",

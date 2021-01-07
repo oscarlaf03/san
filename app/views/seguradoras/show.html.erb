@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cnpj:</strong>
+  <%= @seguradora.cnpj %>
+</p>
+
+<p>
+  <strong>Razao social:</strong>
+  <%= @seguradora.razao_social %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @seguradora.nome %>
+</p>
+
+<%= link_to 'Edit', edit_seguradora_path(@seguradora) %> |
+<%= link_to 'Back', seguradoras_path %>

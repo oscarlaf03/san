@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Seguradoras</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cnpj</th>
+      <th>Razao social</th>
+      <th>Nome</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seguradoras.each do |seguradora| %>
+      <tr>
+        <td><%= seguradora.cnpj %></td>
+        <td><%= seguradora.razao_social %></td>
+        <td><%= seguradora.nome %></td>
+        <td><%= link_to 'Show', seguradora %></td>
+        <td><%= link_to 'Edit', edit_seguradora_path(seguradora) %></td>
+        <td><%= link_to 'Destroy', seguradora, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seguradora', new_seguradora_path %>
