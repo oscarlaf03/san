@@ -4,5 +4,5 @@ class Organizacao < ApplicationRecord
   has_many :beneficiarios
   has_many :organizacao_planos
   has_many :planos, through: :organizacao_planos
-
+  has_many :condicoes
 end
