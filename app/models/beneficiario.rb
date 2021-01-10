@@ -16,6 +16,7 @@ class Beneficiario < ApplicationRecord
   has_one :condicao, through: :beneficio
   has_one :organizacao_plano, through: :beneficio
   has_one :plano, through: :organizacao_plano
+  has_one :conta_bancaria
 
   def perfil
     self.titular ? 'dependente' : 'titular'

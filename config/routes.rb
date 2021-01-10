@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :conta_bancarias
   resources :beneficios
   resources :seguradoras
   resources :planos

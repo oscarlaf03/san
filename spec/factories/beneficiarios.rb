@@ -22,3 +22,8 @@ def beneficiario_with_titular
   FactoryBot.create(:beneficiario, titular: titular, organizacao: titular.organizacao)
 end
 
+def beneficiario_with_banco
+  beneficiario =  FactoryBot.create(:beneficiario)
+  create(:conta_bancaria, beneficiario: beneficiario)
+end
+

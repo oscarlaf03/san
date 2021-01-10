@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Conta Bancarias</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Banco</th>
+      <th>Codigo banco</th>
+      <th>Agencia</th>
+      <th>Conta</th>
+      <th>Beneficiario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conta_bancarias.each do |conta_bancaria| %>
+      <tr>
+        <td><%= conta_bancaria.banco %></td>
+        <td><%= conta_bancaria.codigo_banco %></td>
+        <td><%= conta_bancaria.agencia %></td>
+        <td><%= conta_bancaria.conta %></td>
+        <td><%= conta_bancaria.beneficiario_id %></td>
+        <td><%= link_to 'Show', conta_bancaria %></td>
+        <td><%= link_to 'Edit', edit_conta_bancaria_path(conta_bancaria) %></td>
+        <td><%= link_to 'Destroy', conta_bancaria, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Conta Bancaria', new_conta_bancaria_path %>

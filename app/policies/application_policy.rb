@@ -38,6 +38,11 @@ class ApplicationPolicy
     [:backoffice,:internal]
   end
 
+  def org_or_nil(record=@record)
+    return record if record.kind_of?(Organizacao)
+    return record.respond_to?(:organizacao) ? record.send(:organizacao) : nil
+  end
+
   def only_internal_users
     return false if !user.kind_of?(User)
     internal_roles.each do |role|
@@ -49,13 +54,18 @@ class ApplicationPolicy
   def only_record_members(record=@record)
     return false if record.nil?
     record_name = record.model_name.param_key.to_sym
-    user.send(record_name) == record
+    user.respond_to?(record_name) ? user.send(record_name) == record : false
   end
 
   def only_record_members_users(record=@record)
     return false if !user.kind_of?(User)
-    reject_non_user_models
     only_record_members(record=@record)
+  end
+
+  def only_org_users(record=@record)
+    return false if !user.kind_of?(User)
+    org = org_or_nil(record)
+    org ? user.organizacao == org : false
   end
 
 
@@ -65,6 +75,14 @@ class ApplicationPolicy
 
   def internal_users_or_record_members_users(record=@record)
     only_internal_users || only_record_members_users(record)
+  end
+
+  def internal_or_org_users(record=@record)
+    only_internal_users || only_org_users(record)
+  end
+
+  def internal_or_org_users_or_record_member(record=@record)
+    only_internal_users || only_org_users(record) || only_record_members(record)
   end
 
   class Scope

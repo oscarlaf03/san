@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Banco:</strong>
+  <%= @conta_bancaria.banco %>
+</p>
+
+<p>
+  <strong>Codigo banco:</strong>
+  <%= @conta_bancaria.codigo_banco %>
+</p>
+
+<p>
+  <strong>Agencia:</strong>
+  <%= @conta_bancaria.agencia %>
+</p>
+
+<p>
+  <strong>Conta:</strong>
+  <%= @conta_bancaria.conta %>
+</p>
+
+<p>
+  <strong>Beneficiario:</strong>
+  <%= @conta_bancaria.beneficiario_id %>
+</p>
+
+<%= link_to 'Edit', edit_conta_bancaria_path(@conta_bancaria) %> |
+<%= link_to 'Back', conta_bancarias_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_024345) do
+ActiveRecord::Schema.define(version: 2021_01_10_175543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,17 @@ ActiveRecord::Schema.define(version: 2021_01_07_024345) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organizacao_id"], name: "index_condicoes_on_organizacao_id"
+  end
+
+  create_table "conta_bancarias", force: :cascade do |t|
+    t.string "banco"
+    t.string "codigo_banco"
+    t.string "agencia"
+    t.string "conta"
+    t.bigint "beneficiario_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["beneficiario_id"], name: "index_conta_bancarias_on_beneficiario_id"
   end
 
   create_table "organizacao_planos", force: :cascade do |t|
@@ -154,6 +165,7 @@ ActiveRecord::Schema.define(version: 2021_01_07_024345) do
   add_foreign_key "beneficio_condicoes", "beneficios"
   add_foreign_key "beneficio_condicoes", "condicoes"
   add_foreign_key "condicoes", "organizacoes"
+  add_foreign_key "conta_bancarias", "beneficiarios"
   add_foreign_key "organizacao_planos", "organizacoes"
   add_foreign_key "organizacao_planos", "planos"
 end
