@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_175543) do
+ActiveRecord::Schema.define(version: 2021_01_10_212150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,22 @@ ActiveRecord::Schema.define(version: 2021_01_10_175543) do
     t.index ["beneficiario_id"], name: "index_conta_bancarias_on_beneficiario_id"
   end
 
+  create_table "enderecos", force: :cascade do |t|
+    t.string "logradouro"
+    t.string "numero"
+    t.string "complemento"
+    t.string "bairro"
+    t.string "cidade"
+    t.string "estado"
+    t.string "cep"
+    t.bigint "organizacao_id"
+    t.bigint "beneficiario_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["beneficiario_id"], name: "index_enderecos_on_beneficiario_id"
+    t.index ["organizacao_id"], name: "index_enderecos_on_organizacao_id"
+  end
+
   create_table "organizacao_planos", force: :cascade do |t|
     t.bigint "plano_id", null: false
     t.bigint "organizacao_id", null: false
@@ -166,6 +182,8 @@ ActiveRecord::Schema.define(version: 2021_01_10_175543) do
   add_foreign_key "beneficio_condicoes", "condicoes"
   add_foreign_key "condicoes", "organizacoes"
   add_foreign_key "conta_bancarias", "beneficiarios"
+  add_foreign_key "enderecos", "beneficiarios"
+  add_foreign_key "enderecos", "organizacoes"
   add_foreign_key "organizacao_planos", "organizacoes"
   add_foreign_key "organizacao_planos", "planos"
 end
