@@ -2,10 +2,30 @@ require 'rails_helper'
 
 RSpec.describe Beneficiario, type: :model do
 
-  context "Attributes" do
-    it "Rejeita beneficiairo com email invalido" do
-      user = build(:user, email: 'email_no_valido_gmail.com')
-      expect(user.valid?).to be false
+  context " Bad Attributes" do
+
+    it "Rejeita beneficiario com email valido" do
+      beneficiario = build(:beneficiario, email: 'email_no_valido_gmail.com', cpf:'767.085.410-33')
+      expect(beneficiario.valid?).to be false
+    end
+
+    it "Rejeita beneficiario com cpf valido" do
+      beneficiario = build(:beneficiario, cpf: '23468577859', email:'valid@email.com')
+      expect(beneficiario.valid?).to be false
+    end
+
+  end
+
+  context " Good Attributes" do
+
+    it "Aceita beneficiario com email invalido" do
+      beneficiario = build(:beneficiario, email: 'validemail@validdomain.com', cpf: '767.085.410-33')
+      expect(beneficiario.valid?).to be true
+    end
+
+    it "Aceita beneficiario com cpf inválido" do
+      beneficiario = build(:beneficiario, cpf: '76708541033', email:'valid@email.com')
+      expect(beneficiario.valid?).to be true
     end
 
   end

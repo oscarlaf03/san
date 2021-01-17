@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :beneficiario do
     nome { Faker::Name.name }
     email { Faker::Internet.safe_email}
+    cpf { Faker::IDNumber.brazilian_citizen_number }
     password { Faker::Internet.password(min_length: 10, max_length: 20)}
     organizacao
   end

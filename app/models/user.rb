@@ -6,4 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :organizacao, optional: true
+  validates :email ,presence: true, email: true
+
 end

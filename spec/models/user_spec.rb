@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :mopdel do 
+
+  context "Bad Attributes" do
+
+    it"Rejeita user com email inválido" do
+      user = build(:user, email:'invalid_email')
+      expect(user.valid?).to be false
+    end
+
+  end
+
+  context "Good Attributes" do
+
+    it"Aceita user com email valido" do
+      user = build(:user, email: Faker::Internet.safe_email)
+      expect(user.valid?).to be true
+    end
+
+  end
   context "realationship with orgs" do
     it 'Tem uma org' do
      user = user_with_organizacao

@@ -5,4 +5,5 @@ class Organizacao < ApplicationRecord
   has_many :organizacao_planos
   has_many :planos, through: :organizacao_planos
   has_many :condicoes
+  validates :cnpj, presence: true, cnpj: true
 end

@@ -3,6 +3,8 @@ class Beneficiario < ApplicationRecord
   rolify
 
   validate :titular_nao_pode_ter_titular
+  validates :email ,presence: true, email: true
+  validates :cpf ,presence: true, cpf: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -18,7 +20,6 @@ class Beneficiario < ApplicationRecord
   has_one :plano, through: :organizacao_plano
   has_one :conta_bancaria
 
-  validates :email ,presence: true, email: true
 
 
   def perfil
