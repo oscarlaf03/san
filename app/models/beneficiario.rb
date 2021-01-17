@@ -18,6 +18,9 @@ class Beneficiario < ApplicationRecord
   has_one :plano, through: :organizacao_plano
   has_one :conta_bancaria
 
+  validates :email ,presence: true, email: true
+
+
   def perfil
     self.titular ? 'dependente' : 'titular'
   end

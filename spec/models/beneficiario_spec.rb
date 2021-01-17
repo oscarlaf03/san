@@ -2,7 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Beneficiario, type: :model do
 
+  context "Attributes" do
+    it "Rejeita beneficiairo com email invalido" do
+      user = build(:user, email: 'email_no_valido_gmail.com')
+      expect(user.valid?).to be false
+    end
 
+  end
 
   context "Relationships" do
 
