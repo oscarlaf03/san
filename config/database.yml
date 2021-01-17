@@ -78,6 +78,13 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+homologation:
+  <<: *default
+  database: sanus_homologation
+  username: sanus
+  password: <%= ENV['SANUS_DATABASE_HMG_PASSWORD'] %>
+
+
 production:
   <<: *default
   database: sanus_production
