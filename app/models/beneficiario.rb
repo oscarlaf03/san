@@ -13,12 +13,12 @@ class Beneficiario < ApplicationRecord
 
   belongs_to :organizacao
   belongs_to :titular, class_name: 'Beneficiario', foreign_key: :titular_id, optional: true
-  has_many :dependentes, class_name: 'Beneficiario', foreign_key: :titular_id
+  has_many :dependentes, class_name: 'Beneficiario', foreign_key: :titular_id, dependent: :destroy
   has_one :beneficio
   has_one :condicao, through: :beneficio
   has_one :organizacao_plano, through: :beneficio
   has_one :plano, through: :organizacao_plano
-  has_one :conta_bancaria
+  has_one :conta_bancaria, dependent: :destroy
 
 
 

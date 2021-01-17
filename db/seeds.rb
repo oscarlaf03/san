@@ -28,21 +28,21 @@ cliente = User.create(organizacao: org, email:'cliente@cliente.com', password:'1
 
 p "Creating Beneficarios titulares"
 
-range(1..5).each do |index|
+(1..5).each do |index|
   FactoryBot.create(:beneficiario, organizacao: org, email: "titular#{index}@beneficairo.com", password: '123123')
 end
 
 p "Creating Beneficarios dependentes"
 
-Beneficiario.all.each do |titular|
+Beneficiario.all.each_with_index do |titular, index|
   FactoryBot.create(:beneficiario, organizacao: org, email: "dependente#{index}@beneficairo.com", password: '123123', titular: titular)
 end
 
 p "Creating Beneficios"
 
-org_plano = OrganizaoPlano.where(organizacao: org, plano:plano).first
+org_plano = OrganizacaoPlano.where(organizacao: org, plano:plano).first
 
-Beneficiarios.all.each do |beneficiario|
+Beneficiario.all.each do |beneficiario|
   b = Beneficio.create(beneficiario: beneficiario, organizacao_plano: org_plano)
   b.condicao = condicao
   b.save
