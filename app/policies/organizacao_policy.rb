@@ -1,8 +1,16 @@
 class OrganizacaoPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      if user.internal?
+        scope.all
+      else
+        scope.where(id: user.organizacao_id)
+      end
     end
+  end
+
+  def show?
+    internal_users_or_record_members_users
   end
 
   def index?

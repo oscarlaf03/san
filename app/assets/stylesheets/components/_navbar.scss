@@ -11,5 +11,11 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-    width: 40px;
+    width: 95px;
+}
+
+.navbar-nav {
+    .nav-link {
+        color: $san-gray;
+    }
 }

@@ -4,17 +4,21 @@ class OrganizacoesController < ApplicationController
   # GET /organizacoes
   # GET /organizacoes.json
   def index
-    @organizacoes = Organizacao.all
+    @organizacoes = policy_scope(Organizacao)
   end
 
   # GET /organizacoes/1
   # GET /organizacoes/1.json
   def show
+    @organizacao = Organizacao.find(params[:id])
+    authorize @organizacao
   end
 
   # GET /organizacoes/new
   def new
     @organizacao = Organizacao.new
+    authorize @organizacao
+
   end
 
   # GET /organizacoes/1/edit

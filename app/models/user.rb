@@ -8,4 +8,8 @@ class User < ApplicationRecord
   belongs_to :organizacao, optional: true
   validates :email ,presence: true, email: true
 
+  def internal?
+    organizacao.nil? && self.persisted?
+  end
+
 end
