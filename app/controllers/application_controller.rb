@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
+  before_action :authenticate!
   include Pundit
 
    # Pundit: white-list approach.
@@ -15,5 +16,10 @@ class ApplicationController < ActionController::Base
    private
    def skip_pundit?
      devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+   end
+
+   def authenticate!
+      :authenticate_user! or :authenticate_beneficiario!
+      @current_user =  user_signed_in? ? current_user : current_beneficiario
    end
 end
