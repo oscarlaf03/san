@@ -5,7 +5,7 @@ class CreatePlanos < ActiveRecord::Migration[6.0]
       t.integer :premio_mensal
       t.string :papel
       t.string :acomodacao
-      t.references :aseguradora, null: false, foreign_key: true
+      # t.references :aseguradora, null: false, foreign_key: true
 
       t.timestamps
     end
