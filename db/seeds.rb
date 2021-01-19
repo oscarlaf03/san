@@ -29,13 +29,13 @@ cliente = User.create(organizacao: org, email:'cliente@cliente.com', password:'1
 p "Creating Beneficarios titulares"
 
 (1..5).each do |index|
-  FactoryBot.create(:beneficiario, organizacao: org, email: "titular#{index}@beneficairo.com", password: '123123')
+  FactoryBot.create(:beneficiario, organizacao: org, email: "titular#{index}@beneficiario.com", password: '123123')
 end
 
 p "Creating Beneficarios dependentes"
 
 Beneficiario.all.each_with_index do |titular, index|
-  FactoryBot.create(:beneficiario, organizacao: org, email: "dependente#{index}@beneficairo.com", password: '123123', titular: titular)
+  FactoryBot.create(:beneficiario, organizacao: org, email: "dependente#{index}@beneficiario.com", password: '123123', titular: titular)
 end
 
 p "Creating Beneficios"
