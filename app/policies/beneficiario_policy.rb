@@ -5,6 +5,10 @@ class BeneficiarioPolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    only_internal_users || self?
+  end
+
   def index?
     internal_users_or_record_members_users(record.organizacao)
   end

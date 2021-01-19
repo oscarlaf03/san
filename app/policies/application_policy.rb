@@ -43,6 +43,10 @@ class ApplicationPolicy
     return record.respond_to?(:organizacao) ? record.send(:organizacao) : nil
   end
 
+  def self?
+    record == user
+  end
+
   def only_internal_users
     return false if !user.kind_of?(User)
     internal_roles.each do |role|
