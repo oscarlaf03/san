@@ -27,23 +27,23 @@ gem 'redis', '~> 4.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-
 gem 'devise'
-
 gem "rolify"
-
 gem "pundit"
 gem "cpf_cnpj"
-
-
+gem 'factory_bot_rails'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
-group :development, :test do  gem 'pry-byebug'
+
+group :development, :test do
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "rspec-rails"
 end
 
 group :development do
@@ -68,10 +68,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-group :test, :development do 
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
-  gem "rspec-rails"
-  gem 'factory_bot_rails'
-end
 
