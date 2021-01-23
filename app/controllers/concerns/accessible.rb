@@ -16,7 +16,7 @@ module Accessible
       flash.clear
       if current_user.internal?
       # The authenticated root path can be defined in your routes.rb in: devise_scope :user do...
-      redirect_to(authenticated_user_root_path) and return
+      redirect_to(organizacoes_path) and return
       else
         redirect_to(organizacao_path(current_user.organizacao)) and return
       end
