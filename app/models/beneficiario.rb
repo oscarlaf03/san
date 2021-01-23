@@ -1,4 +1,4 @@
-class Beneficiario < ApplicationRecord
+class Beneficiario < BaseUser
   resourcify
   rolify
 
