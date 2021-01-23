@@ -1,3 +1,5 @@
+$sidebar-start-point: $nav-height;
 .ui.inverted.menu {
     background: $san-blue;
+    top: $sidebar-start-point;
 }

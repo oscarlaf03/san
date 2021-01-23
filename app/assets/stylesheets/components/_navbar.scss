@@ -1,5 +1,7 @@
+$nav-height: 10vh;
 .navbar-lewagon {
     justify-content: space-between;
+    height: $nav-height;
     background: $san-blue;
 }
 
