@@ -1,6 +1,5 @@
 // app/assets/stylesheets/components/_form.scss
 .form-devise {
-    background: white;
     padding: 10px 20px;
     margin-top: 50px;
     border-radius: 3px;
@@ -14,5 +13,26 @@
     .btn {
         width: 100%;
         margin-bottom: 20px
+    }
+}
+
+.form-devise {
+    border-radius: 4%;
+    background: $san-dark-gray;
+    color: $snow-white;
+    .submit {
+        color: $san-dark-blue
+    }
+    a {
+        color: $san-dark-blue
+    }
+}
+
+.login-form-container {
+    .user {
+        background: $san-light-blue;
+    }
+    .beneficiario {
+        background: $san-water-blue;
     }
 }

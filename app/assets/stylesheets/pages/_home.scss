@@ -1,11 +1,14 @@
 // Specific CSS for your home-page
 body {
-    background-color: $san-gray;
-    .pusher {
-        margin-top: 6px;
-        padding: 12px;
-    }
+    // background-color: $san-gray;
+    // .pusher {
+    //     margin: 0px;
+    //     padding: 0px;
+    // }
 }
 
 // body .main-container {
 // }
+.login-body {
+    background-image: url("login-background");
+}
