@@ -1,7 +1,7 @@
- <div class="container">
+ <div class="container login-form-container">
   <div class="row">
     <div class="col-xs-12 col-sm-4  offset-sm-4 form-devise">
-      <h2>Restabelecer Senha</h2>
+      <h2>Esqueceu a sua senha?</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
         <%= f.error_notification %>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Send me reset password instructions" %>
+          <%= f.button :submit, "Restabelecer senha", class: 'btn btn-primary' %>
         </div>
       <% end %>
 
