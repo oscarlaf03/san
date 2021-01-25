@@ -5,5 +5,6 @@ class Organizacao < ApplicationRecord
   has_many :organizacao_planos, dependent: :destroy
   has_many :planos, through: :organizacao_planos
   has_many :condicoes, dependent: :destroy
+  has_one :endereco, dependent: :destroy
   validates :cnpj, presence: true, cnpj: true
 end

@@ -4,7 +4,6 @@ p "Creating internal users"
 ['teste@teste.com','admin@admin.com','backoffice@backoffice.com','internal@internal.com'].each do |email|
   u = User.create(email:email, password:'123123')
   u.add_role(:backoffice)
-  u.save
 end
 
 p 'Creting neighboor organizations'

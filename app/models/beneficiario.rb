@@ -19,6 +19,7 @@ class Beneficiario < BaseUser
   has_one :organizacao_plano, through: :beneficio
   has_one :plano, through: :organizacao_plano
   has_one :conta_bancaria, dependent: :destroy
+  has_one :endereco, dependent: :destroy
 
 
 

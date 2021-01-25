@@ -5,6 +5,7 @@ FactoryBot.define do
     cpf { Faker::IDNumber.brazilian_citizen_number }
     password { Faker::Internet.password(min_length: 10, max_length: 20)}
     organizacao
+    endereco
   end
 end
 
