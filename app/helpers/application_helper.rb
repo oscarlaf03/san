@@ -8,4 +8,8 @@ module ApplicationHelper
     login_page? ? "login-body": ''
   end
 
+  def internal_user?
+    current_user.internal?
+  end
+
 end

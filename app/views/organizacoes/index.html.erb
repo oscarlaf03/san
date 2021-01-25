@@ -1,31 +1,29 @@
 <p id="notice"><%= notice %></p>
+  <h1>Organizacoes</h1>
 
-<h1>Organizacoes</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Slug</th>
-      <th>Razao social</th>
-      <th>Cnpj</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @organizacoes.each do |organizacao| %>
+  <table class='ui celled table'>
+    <thead>
       <tr>
-        <td><%= organizacao.slug %></td>
-        <td><%= organizacao.razao_social %></td>
-        <td><%= organizacao.cnpj %></td>
-        <td><%= link_to 'Show', organizacao %></td>
-        <td><%= link_to 'Edit', edit_organizacao_path(organizacao) %></td>
-        <td><%= link_to 'Destroy', organizacao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Slug</th>
+        <th>Razao social</th>
+        <th>Cnpj</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @organizacoes.each do |organizacao| %>
+        <tr>
+          <td><%= link_to organizacao.razao_social, organizacao %></td>
+          <td><%= organizacao.cnpj %></td>
+          <td><%= organizacao.slug %></td>
+          <% edit_button= '<div class="ui icon button blue" data-tooltip="Editar"><i class="edit outline icon"></i></div>'.html_safe%>
+          <td><%= link_to edit_button, edit_organizacao_path(organizacao) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Organizacao', new_organizacao_path %>
+  <br>
+
+  <%= link_to 'New Organizacao', new_organizacao_path ,class: 'btn btn-light-blue' if internal_user? %>

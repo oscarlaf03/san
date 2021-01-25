@@ -11,5 +11,9 @@ class BaseUser < ApplicationRecord
     end
   end
 
+  def internal?
+    self.kind_of?(User)  ? self.internal? : false
+  end
+
 
 end
