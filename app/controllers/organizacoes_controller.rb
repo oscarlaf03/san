@@ -23,6 +23,7 @@ class OrganizacoesController < ApplicationController
 
   # GET /organizacoes/1/edit
   def edit
+    authorize @organizacao
   end
 
   # POST /organizacoes
@@ -58,11 +59,9 @@ class OrganizacoesController < ApplicationController
   # DELETE /organizacoes/1
   # DELETE /organizacoes/1.json
   def destroy
-    @organizacao.destroy
-    respond_to do |format|
-      format.html { redirect_to organizacoes_url, notice: 'Organizacao was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    authorize @organizacao
+    # Not implemented for safety
+    
   end
 
   private
