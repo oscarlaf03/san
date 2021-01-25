@@ -7,6 +7,11 @@ p "Creating internal users"
   u.save
 end
 
+p 'Creting neighboor organizations'
+3.times do
+  user_with_organizacao
+end
+
 p "Creating organizacao com plano"
 
 org = FactoryBot.create(:organizacao)
