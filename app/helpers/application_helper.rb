@@ -12,4 +12,12 @@ module ApplicationHelper
     current_user.internal?
   end
 
+  def user_logged_in?
+    !!current_user or  !!current_beneficiario
+  end
+
+  def current_user_or_beneficiario
+    user_signed_in? ? current_user : current_beneficiario
+  end
+
 end

@@ -1,7 +1,15 @@
 class BeneficiarioPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      if user.internal?
+        scope.all
+      elsif user.client_user?
+        scope.where(organizacao_id: user.organizacao_id)
+      elsif user.titular?
+        scope.where(id: user.id).or(scope.where(titular_id: user.id))
+      elsif user.beneficiario?
+        scope.where(id: user.id)
+      end
     end
   end
 

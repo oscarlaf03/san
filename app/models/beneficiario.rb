@@ -23,8 +23,12 @@ class Beneficiario < BaseUser
 
 
 
+  def titular?
+    self.titular.nil?
+  end
+
   def perfil
-    self.titular ? 'dependente' : 'titular'
+    self.titular? ? 'tiular' : 'dependente'
   end
 
   private

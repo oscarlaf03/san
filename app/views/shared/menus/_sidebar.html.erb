@@ -1,7 +1,7 @@
 <!-- TODO -->
-<% if current_user %>
+<% if user_logged_in? %>
   <div class=" main-sidebar ui visible left demo vertical inverted sidebar labeled icon menu  main-sidebar">
-      <%= render "shared/menus/#{current_user.sidebar_content}" %>
+      <%= render "shared/menus/#{current_user_or_beneficiario.sidebar_content}" %>
   </div>
 <% end %>
 

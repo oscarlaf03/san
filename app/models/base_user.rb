@@ -15,5 +15,21 @@ class BaseUser < ApplicationRecord
     self.kind_of?(User)  ? self.internal? : false
   end
 
+  def client_user?
+    self.kind_of?(User)  ? self.organizacao.present? : false
+  end
+
+  def titular?
+    self.kind_of?(Beneficiario)  ? self.titular? : false
+  end
+
+  def dependente?
+    self.kind_of?(Beneficiario)  ? !self.titular? : false
+  end
+
+  def beneficiario?
+    self.kind_of?(Beneficiario)
+  end
+
 
 end

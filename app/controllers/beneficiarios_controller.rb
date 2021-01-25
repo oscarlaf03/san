@@ -4,6 +4,7 @@ class BeneficiariosController < ApplicationController
   # skip_before_action :check_user, only: [:destroy,:show]
 
   def index
+    @beneficiarios = policy_scope(Beneficiario)
   end
 
   def show
