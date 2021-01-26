@@ -30,6 +30,7 @@ class OrganizacoesController < ApplicationController
   # POST /organizacoes.json
   def create
     @organizacao = Organizacao.new(organizacao_params)
+    authorize @organizacao
 
     respond_to do |format|
       if @organizacao.save
@@ -46,6 +47,7 @@ class OrganizacoesController < ApplicationController
   # PATCH/PUT /organizacoes/1.json
   def update
     respond_to do |format|
+      authorize @organizacao
       if @organizacao.update(organizacao_params)
         format.html { redirect_to @organizacao, notice: 'Organizacao was successfully updated.' }
         format.json { render :show, status: :ok, location: @organizacao }
