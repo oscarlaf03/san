@@ -1,8 +1,15 @@
 // Specific CSS for your home-page
 body {
     background-color: $san-gray;
+    .ui.pusher {
+        // margin-left: -10px;
+    }
 }
 
 .login-body {
     background-image: url("login-background");
+}
+
+.ui.container {
+    margin-left: $sidebar-max-width!important;
 }

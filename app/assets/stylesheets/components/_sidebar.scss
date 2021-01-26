@@ -1,5 +1,13 @@
 $sidebar-start-point: $nav-height;
-.ui.inverted.menu {
+$sidebar-max-width: 10%;
+.ui.inverted.menu,
+.ui.vertical.menu {
     background: $san-blue;
+    position: absolute;
+    height: calc(100vh - $nav-height);
     top: $sidebar-start-point;
+    bottom: 0%;
+    margin: 0px;
+    border-radius: 0%;
+    max-width: $sidebar-max-width;
 }
