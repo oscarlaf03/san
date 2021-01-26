@@ -20,4 +20,13 @@ module ApplicationHelper
     user_signed_in? ? current_user : current_beneficiario
   end
 
+  def edit_button
+    '<div class="ui icon button blue" data-tooltip="Editar"><i class="edit outline icon"></i></div>'.html_safe
+  end
+
+  def arrow_left_button
+    '<div class="ui icon button blue" data-tooltip="Voltar"><i class="arrow left icon"></i></div>'.html_safe
+  end
+
+
 end
