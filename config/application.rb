@@ -29,7 +29,7 @@ module Sanus
     config.time_zone = "Brasilia"
     config.active_record.default_timezone = :local
 
-    config.serve_static_assets = true
+    config.assets.compile = false
 
 
     # Settings in config/environments/* take precedence over those specified here.
