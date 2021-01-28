@@ -1,7 +1,8 @@
 
 <%= simple_form_for(@organizacao, html:{class:'model-form '}) do |f| %>
-<div class="form-group">
+  <div class="form-group">
 
+    <h3>Dados da empresa</h3>
 
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -11,10 +12,35 @@
       <%= f.input :razao_social %>
       <%= f.input :cnpj %>
     </div>
+  </div>
+  <div class="form-group">
+    <h3>Endereço</h3>
+    <%= f.simple_fields_for :endereco do |endereco_form| %>
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <%= endereco_form.input :logradouro %>
+        </div>
+        <div class="col-sm-2 col-12">
+          <%= endereco_form.input :numero %>
+        </div>
+        <div class="col-sm-4 col-12">
+          <%= endereco_form.input :bairro %>
+        </div>
+        <div class="col-sm-4 col-12">
+          <%= endereco_form.input :cidade %>
+        </div>
+        <div class="col-sm-4 col-12">
+          <%= endereco_form.input :estado %>
+        </div>
+        <div class="col-sm-4 col-12">
+          <%= endereco_form.input :cep %>
+        </div>
+      </div>
+    <%end %>
+  
 
-    <div class="form-actions">
-      <%= f.button :submit , value: 'Salvar', class:'btn btn-primary' %>
-    </div>
-  <% end %>
+  <div class="form-actions">
+    <%= f.button :submit , value: 'Salvar', class:'btn btn-primary' %>
+  </div>
+<% end %>
 
-</div>
