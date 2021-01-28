@@ -28,7 +28,8 @@ module Sanus
 
     config.time_zone = "Brasilia"
     config.active_record.default_timezone = :local
-
+  
+    # for heroku asset pipeline
     config.assets.compile = false
 
 

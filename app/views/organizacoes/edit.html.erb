@@ -1,5 +1,6 @@
-<h1>Editar Organização</h1>
+<div class='form-model-container  container-fluid'>
+  <h1>Editar Organização</h1>
+  <%= render 'form', organizacao: @organizacao %>
+  <%= link_to back_button, organizacoes_path %>
+</div>
 
-<%= render 'form', organizacao: @organizacao %>
-
-<%= link_to edit_button, organizacoes_path %>

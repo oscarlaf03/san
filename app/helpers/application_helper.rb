@@ -24,7 +24,7 @@ module ApplicationHelper
     '<div class="ui icon button blue" data-tooltip="Editar"><i class="edit outline icon"></i></div>'.html_safe
   end
 
-  def arrow_left_button
+  def back_button
     '<div class="ui icon button blue" data-tooltip="Voltar"><i class="arrow left icon"></i></div>'.html_safe
   end
 

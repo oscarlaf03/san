@@ -1,15 +1,20 @@
 
-<%= simple_form_for(@organizacao) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= simple_form_for(@organizacao, html:{class:'model-form '}) do |f| %>
+<div class="form-group">
 
-  <div class="form-inputs">
-    <%= f.input :slug %>
-    <%= f.input :razao_social %>
-    <%= f.input :cnpj %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit , value: 'Salvar', class:'btn btn-primary' %>
-  </div>
-<% end %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="form-inputs">
+      <%= f.input :slug %>
+      <%= f.input :razao_social %>
+      <%= f.input :cnpj %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit , value: 'Salvar', class:'btn btn-primary' %>
+    </div>
+  <% end %>
+
+</div>
