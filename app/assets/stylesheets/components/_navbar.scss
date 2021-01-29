@@ -1,18 +1,18 @@
 $nav-height: 6vh;
-.navbar-lewagon {
+.navbar-sanus {
     justify-content: space-between;
     height: $nav-height;
     background: $san-blue;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-sanus .navbar-collapse {
     flex-grow: 0;
     .nav-link {
         color: $san-gray
     }
 }
 
-.navbar-lewagon .navbar-brand img {
+.navbar-sanus .navbar-brand img {
     width: 95px;
 }
 
