@@ -17,7 +17,7 @@ class OrganizacoesController < ApplicationController
   # GET /organizacoes/new
   def new
     @organizacao = Organizacao.new
-    @organizacao.endereco.build
+    @organizacao.endereco = Endereco.new
 
     authorize @organizacao
 
