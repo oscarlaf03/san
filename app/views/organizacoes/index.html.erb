@@ -5,7 +5,10 @@
     <thead>
       <tr>
         <th>Razao social</th>
+        <th>Nome de fantasia</th>
         <th>Cnpj</th>
+        <th>Inscrição Estadual</th>
+        <th>Inscrição Municipal</th>
         <th>Slug</th>
         <th colspan="3">Ações</th>
       </tr>
@@ -15,7 +18,10 @@
       <% @organizacoes.each do |organizacao| %>
         <tr>
           <td><%= link_to organizacao.razao_social, organizacao %></td>
+          <td><%= organizacao.nome_fantasia %></td>
           <td><%= organizacao.cnpj %></td>
+          <td><%= organizacao.inscricao_municipal %></td>
+          <td><%= organizacao.inscricao_estadual %></td>
           <td><%= organizacao.slug %></td>
           <% edit_button= '<div class="ui icon button blue" data-tooltip="Editar"><i class="edit outline icon"></i></div>'.html_safe%>
           <td><%= link_to edit_button, edit_organizacao_path(organizacao) %></td>

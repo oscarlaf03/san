@@ -76,7 +76,7 @@ class OrganizacoesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def organizacao_params
-    params.require(:organizacao).permit(:slug, :razao_social, :cnpj,
+    params.require(:organizacao).permit(:slug, :razao_social, :cnpj,:nome_fantasia, :inscricao_municipal, :inscricao_estadual,
       endereco_attributes: [:id, :logradouro, :numero, :complemento, :bairro, :cidade, :estado, :cep, :organizacao_id, :beneficiario_id, :created_at, :updated_at]
     )
   end
