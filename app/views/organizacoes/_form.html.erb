@@ -8,10 +8,11 @@
   <div class="form-group">
     <%= f.simple_fields_for :users do |user_form|  %>
       <%= render 'users_fields' , f: user_form %>
-      <div class="links">
+      
+    <% end%>
+    <div class="links">
         <%= link_to_add_association 'Adicionar responsável', f,  :users, partial: 'users_fields', class: 'btn btn-info' %>
       </div>
-    <% end%>
 
 
   </div>

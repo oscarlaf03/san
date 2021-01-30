@@ -31,5 +31,7 @@ class BaseUser < ApplicationRecord
     self.kind_of?(Beneficiario)
   end
 
-
+  def name
+    self.kind_of?(User) ?  "#{self.first_name} #{self.last_name}" : ''
+  end
 end

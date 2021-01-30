@@ -1,35 +1,18 @@
 
 <div class="container-fluid organizacao-container padding-margin"> 
   <p id="notice"><%= notice %></p>
-    <div class="card organizacao-info-card">
-      <div class="mode-card">
-        <div class="card-body">
-        <h5 class='card-title'>
-            <%= @organizacao.nome_fantasia %>
-          </h5>
-          <div class="card-text">  
-            <p>
-              <strong>Razao social:</strong>
-              <%= @organizacao.razao_social %>
-            </p>
-            <p>
-              <strong>Cnpj:</strong>
-              <%= @organizacao.cnpj %>
-            </p>
-            <p>
-              <strong>Inscrição Municipal:</strong>
-              <%= @organizacao.inscricao_municipal %>
-            </p>
-            <p>
-              <strong>Inscrição Estadual:</strong>
-              <%= @organizacao.inscricao_estadual %>
-            </p>
-          </div>
-        </div>
+  <div class="row">
+    <%= render 'organizacao_info_card'%>
+  </div>
+  <div class="row">
+    <% @organizacao.users.each do |user|%>
+      <div class="col-12 col-sm-4">
+        <%= render 'organizacao_users_info_card', user: user %>
       </div>
-    </div>
+    <% end%>
+  </div>
+    
 
 
-  <%= link_to edit_button, edit_organizacao_path(@organizacao) %>
   <%= link_to back_button, organizacoes_path %>
 </div>
