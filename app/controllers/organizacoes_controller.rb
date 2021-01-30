@@ -79,7 +79,7 @@ class OrganizacoesController < ApplicationController
   def organizacao_params
     params.require(:organizacao).permit(:slug, :razao_social, :cnpj,:nome_fantasia, :inscricao_municipal, :inscricao_estadual,
       endereco_attributes: [:id, :logradouro, :numero, :complemento, :bairro, :cidade, :estado, :cep, :organizacao_id, :beneficiario_id, :created_at, :updated_at, :_destroy],
-      user_attributes: [:id, :email, :organizacao_id, :phone, :first_name, :last_name, :_destroy]
+      users_attributes: [:id, :email, :organizacao_id, :phone, :first_name, :last_name,:password, :_destroy]
     )
   end
 end

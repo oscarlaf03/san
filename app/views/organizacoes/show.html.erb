@@ -1,9 +1,11 @@
 
 <div class="container-fluid organizacao-container padding-margin"> 
   <p id="notice"><%= notice %></p>
+  <h2>Informação da empresa</h2>
   <div class="row">
     <%= render 'organizacao_info_card'%>
   </div>
+  <h2>Responsaveis</h2>
   <div class="row">
     <% @organizacao.users.each do |user|%>
       <div class="col-12 col-sm-4">
@@ -11,7 +13,6 @@
       </div>
     <% end%>
   </div>
-    
 
 
   <%= link_to back_button, organizacoes_path %>
