@@ -1,0 +1,3 @@
+Organizacao.destroy_all
+User.destroy_all
+Seguradora.destroy_all
