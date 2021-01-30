@@ -1,6 +1,6 @@
 class Organizacao < ApplicationRecord
   resourcify
-  has_many :users
+  has_many :users, inverse_of: :organizacao
   accepts_nested_attributes_for :users,reject_if: :all_blank,  allow_destroy: true
 
   has_many :beneficiarios, dependent: :destroy

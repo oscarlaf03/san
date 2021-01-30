@@ -6,33 +6,14 @@
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   
   <div class="form-group">
-    <h3>Responsável</h3>
-    <%= f.simple_fields_for :user do |user_form|  %>
-      <div class="row">
-        <div class="col-sm-6 col-12">
-          <%= user_form.input :email %>
-        </div>
-         <div class="col-sm-6 col-12">
-          <%= user_form.input :phone %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 col-12">
-          <%= user_form.input :first_name %>
-        </div>
-         <div class="col-sm-6 col-12">
-          <%= user_form.input :last_name %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 col-12">
-          <%= user_form.input :password %>
-        </div>
+    <%= f.simple_fields_for :users do |user_form|  %>
+      <%= render 'users_fields' , f: user_form %>
+      <div class="links">
+        <%= link_to_add_association 'Adicionar responsável', f,  :users, partial: 'users_fields', class: 'btn btn-info' %>
       </div>
     <% end%>
 
-        
-  
+
   </div>
   <div class="form-group">
     <h3>Dados cadastrais</h3>
