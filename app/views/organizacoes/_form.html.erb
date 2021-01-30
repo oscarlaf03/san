@@ -4,8 +4,37 @@
 
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  
   <div class="form-group">
+    <h3>Responsável</h3>
+    <%= f.simple_fields_for :user do |user_form|  %>
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <%= user_form.input :email %>
+        </div>
+         <div class="col-sm-6 col-12">
+          <%= user_form.input :phone %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <%= user_form.input :first_name %>
+        </div>
+         <div class="col-sm-6 col-12">
+          <%= user_form.input :last_name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-12">
+          <%= user_form.input :password %>
+        </div>
+      </div>
+    <% end%>
 
+        
+  
+  </div>
+  <div class="form-group">
     <h3>Dados cadastrais</h3>
     <div class="form-inputs">
       <%= f.input :slug %>
@@ -14,7 +43,6 @@
       <%= f.input :cnpj %>
       <%= f.input :inscricao_municipal %>
       <%= f.input :inscricao_estadual %>
-
     </div>
   </div>
   <div class="form-group">
