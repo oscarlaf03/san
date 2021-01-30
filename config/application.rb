@@ -30,7 +30,7 @@ module Sanus
     config.active_record.default_timezone = :local
   
     #  set false for heroku asset pipeline
-    # config.assets.compile = false
+    config.assets.compile = false
 
 
     # Settings in config/environments/* take precedence over those specified here.
