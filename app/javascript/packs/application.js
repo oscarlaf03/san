@@ -8,6 +8,8 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("semantic-ui-sass")
+require("jquery")
+require("@nathanvda/cocoon")
 
 
 
