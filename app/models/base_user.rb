@@ -32,6 +32,6 @@ class BaseUser < ApplicationRecord
   end
 
   def name
-    self.kind_of?(User) ?  "#{self.first_name} #{self.last_name}" : ''
+    self.kind_of?(User) ?  "#{self.first_name} #{self.last_name}" :  "#{self.nome} #{self.sobre_nome}"
   end
 end
