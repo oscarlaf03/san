@@ -1,0 +1,40 @@
+<%= simple_form_for([@organizacao, @beneficiario], html:{class: 'form-model'} )do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="form-group">
+    <h3>Beneficiario</h3>
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <%= f.input :nome %>
+      </div>
+      <div class="col-12 col-sm-6">
+        <%= f.input :sobre_nome %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-3">
+        <%= f.input :cpf %>
+      </div>
+      <div class="col-12 col-sm-3">
+        <%= f.input :nacionalidade %>
+      </div>
+      <div class="col-12 col-sm-3">
+        <%= f.input :genero, collection: ['homem','mulher']%>
+      </div>
+      <div class="col-12 col-sm-3">
+        <%= f.input :data_nascimento %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-4">
+        <%= f.input :email %>
+      </div>
+       <div class="col-12 col-sm-4">
+        <%= f.input :password %>
+      </div>
+    </div>
+
+  </div>
+  <%= f.button :submit , value: 'Salvar', class:'btn btn-primary' %>
+
+<% end%>

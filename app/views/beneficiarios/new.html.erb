@@ -1,0 +1,6 @@
+<div class='form-model-container  container-fluid'>
+  <h1>Novo Beneficiario</h1>
+  <%= render 'form', beneficiario: @beneficiario, url: nil %>
+  <%= link_to back_button, organizacao_path(@beneficiario.organizacao) %>
+</div>
+

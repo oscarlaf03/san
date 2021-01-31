@@ -11,7 +11,7 @@ module Accessible
       flash.clear
       # if you have rails_admin. You can redirect anywhere really
       # redirect_to(rails_admin.dashboard_path) and return
-      redirect_to(beneficiario_path(current_beneficiario)) and return
+      redirect_to(organizacao_beneficiario_path(current_beneficiario.organizacao, current_beneficiario)) and return
     elsif current_user
       flash.clear
       if current_user.internal?

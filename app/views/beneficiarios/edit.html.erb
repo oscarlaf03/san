@@ -1,0 +1,6 @@
+<div class='form-model-container  container-fluid'>
+  <h1>Editar Beneficiario</h1>
+  <%= render 'form', beneficiario: @beneficiario, url: organizacao_beneficiario_path(@beneficiario.organizacao) %>
+  <%= link_to back_button, organizacao_path(@beneficiario.organizacao) %>
+</div>
+

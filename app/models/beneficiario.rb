@@ -5,6 +5,7 @@ class Beneficiario < BaseUser
   validate :titular_nao_pode_ter_titular
   validates :email ,presence: true, email: true
   validates :cpf ,presence: true, cpf: true
+  validates :genero ,presence: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
