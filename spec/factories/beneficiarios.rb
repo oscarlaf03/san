@@ -3,7 +3,7 @@ FactoryBot.define do
     nome { Faker::Name.name }
     email { Faker::Internet.safe_email}
     cpf { Faker::IDNumber.brazilian_citizen_number }
-    password { Faker::Internet.password(min_length: 10, max_length: 20)}
+    password {"123123"}
     organizacao
     endereco
   end
