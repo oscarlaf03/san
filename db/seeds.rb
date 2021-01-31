@@ -32,7 +32,7 @@ cliente = User.create(organizacao: org, email:'cliente@cliente.com', password:'1
 
 p "Creating Beneficarios titulares"
 
-(1..5).each do |index|
+(1..12).each do |index|
   FactoryBot.create(:beneficiario, organizacao: org, email: "titular#{index}@beneficiario.com", password: '123123')
 end
 
