@@ -1,4 +1,6 @@
 class User < BaseUser
+  devise :registerable, :confirmable
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -10,6 +12,12 @@ class User < BaseUser
 
   def internal?
     organizacao.nil? && self.persisted?
+  end
+
+  protected
+  
+  def password_required?
+    confirmed? ? super : false
   end
 
 end
