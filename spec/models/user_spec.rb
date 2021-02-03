@@ -46,8 +46,8 @@ RSpec.describe User, type: :mopdel do
     it "#set_reset_password_token - returns the plain text token" do
       user = create(:user)
       potential_token = user.send(:set_reset_password_token)
-      potential_token_digest = Devise.token_generator.digest(subject, :reset_password_token, potential_token)
-      actual_token_digest = subject.reset_password_token
+      potential_token_digest = Devise.token_generator.digest(user, :reset_password_token, potential_token)
+      actual_token_digest = user.reset_password_token
       expect(potential_token_digest).to eql(actual_token_digest)
     end
   end
