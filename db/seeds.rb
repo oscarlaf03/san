@@ -52,6 +52,8 @@ Beneficiario.all.each do |beneficiario|
   b.save
 end
 
+p "Confirmando todos os usuários"
+User.update_all confirmed_at: DateTime.now
 
 
 
