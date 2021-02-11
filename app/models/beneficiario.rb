@@ -9,7 +9,7 @@ class Beneficiario < BaseUser
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
   belongs_to :organizacao
@@ -30,6 +30,12 @@ class Beneficiario < BaseUser
 
   def perfil
     self.titular? ? 'tiular' : 'dependente'
+  end
+
+  protected
+
+  def password_required?
+    confirmed? ? super : false
   end
 
   private

@@ -42,7 +42,7 @@ RSpec.describe User, type: :mopdel do
 
   end
 
-  context "Devise" do
+  context "Devise for User" do
     it "#set_reset_password_token - returns the plain text token" do
       user = create(:user)
       potential_token = user.send(:set_reset_password_token)

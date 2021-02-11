@@ -104,4 +104,15 @@ RSpec.describe Beneficiario, type: :model do
       expect(titular.valid?).to be(false)
     end
   end
+
+  context 'Devise for Beneficiairo' do
+    it '#set_reset_password_token - returns the plaintext token' do
+      beneficiario = create(:user)
+      potential_token = beneficiario.send(:set_reset_password_token)
+      potential_token_digest = Devise.token_generator.digest(beneficiario, :reset_password_token, potential_token)
+      actual_token_digest = beneficiario.reset_password_token
+      expect(potential_token_digest).to eql(actual_token_digest)
+    end
+  end
+  
 end

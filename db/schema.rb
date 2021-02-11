@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_172108) do
+ActiveRecord::Schema.define(version: 2021_02_11_000927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 2021_02_02_172108) do
     t.integer "titular_id"
     t.string "sobre_nome"
     t.string "genero"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_beneficiarios_on_confirmation_token", unique: true
     t.index ["email"], name: "index_beneficiarios_on_email", unique: true
     t.index ["organizacao_id"], name: "index_beneficiarios_on_organizacao_id"
     t.index ["reset_password_token"], name: "index_beneficiarios_on_reset_password_token", unique: true
