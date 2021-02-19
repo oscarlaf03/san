@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   resources :organizacoes do
     resources :beneficiarios
   end
-  
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :organizacoes
+    end
+  end
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
