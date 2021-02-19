@@ -38,6 +38,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'semantic-ui-sass'
 gem "cocoon"
+gem 'rack-cors'
 
 
 
