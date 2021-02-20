@@ -1,16 +1,16 @@
 class Api::V1::OrganizacaoPlanosController < Api::V1::BaseController
-
   before_action :set_organizacao_plano , only: [:show, :update]
+  before_action :set_organizacao, only: [:index,:create, :update]
+
   def index
-    @organizacao_planos = OrganizacaoPlano.all
+    @organizacao_planos = OrganizacaoPlano.where(organizacao: @organizacao)
   end
 
   def show
-    @organizacao_plano = OrganizacaoPlano.find(params[:id])
   end
 
   def create
-    @organizacao_plano = OrganizacaoPlano.new(organizacao_plano_params)
+    @organizacao_plano = @organizacao.organizacao_planos.build(organizacao_plano_params)
     if @organizacao_plano.save
       render :show, status: :created
     else
@@ -28,12 +28,16 @@ class Api::V1::OrganizacaoPlanosController < Api::V1::BaseController
 
   private
 
+  def set_organizacao
+    @organizacao = Organizacao.find(params[:organizacao_id])
+  end
+
   def set_organizacao_plano
     @organizacao_plano = OrganizacaoPlano.find(params[:id])
   end
 
   def organizacao_plano_params
-    params.require(:organizacao_plano).permit(*OrganizacaoPlano.params)
+    params.require(:organizacao_plano).permit(:plano_id)
   end
 
 end

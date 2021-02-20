@@ -27,11 +27,13 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :organizacoes do
         resources :beneficiarios
+      resources :organizacao_planos, path: 'planos'
+
       end
       resources :seguradoras do
         resources :planos
       end
-      resources :organizacao_planos
+      resources :organizacao_planos, only: [:create,:update]
     end
   end
   root to: 'pages#home'

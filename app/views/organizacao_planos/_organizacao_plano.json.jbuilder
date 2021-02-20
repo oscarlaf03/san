@@ -1,2 +1,2 @@
 json.extract! organizacao_plano, *OrganizacaoPlano.params
-json.url organizacao_url(organizacao_plano, format: :json)
+json.url api_v1_organizacao_organizacao_plano_url(organizacao_plano.organizacao,organizacao_plano, format: :json)
