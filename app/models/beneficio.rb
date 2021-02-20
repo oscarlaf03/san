@@ -1,4 +1,4 @@
-class Beneficio < ApplicationRecord
+class Beneficio < BaseModel
   belongs_to :beneficiario
   belongs_to :organizacao_plano
   has_one :beneficio_condicao, dependent: :destroy
