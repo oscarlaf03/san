@@ -27,7 +27,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :organizacoes do
         resources :beneficiarios
-      resources :organizacao_planos, path: 'planos'
+        resources :organizacao_planos, path: 'planos'
+        resources :condicoes
 
       end
       resources :seguradoras do

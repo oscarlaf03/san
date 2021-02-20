@@ -26,6 +26,8 @@ class Api::V1::BeneficiariosController < Api::V1::BaseController
     end
   end
 
+  private
+
   def set_beneficiario
     @beneficiario = Beneficiario.find(params[:id])
   end
