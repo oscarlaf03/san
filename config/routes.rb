@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   end
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
-      resources :organizacoes
+      resources :organizacoes do
+        resources :beneficiarios
+      end
       resources :seguradoras do
         resources :planos
       end

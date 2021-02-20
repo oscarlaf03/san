@@ -1,4 +1,4 @@
-class BaseUser < ApplicationRecord
+class BaseUser < BaseModel
   self.abstract_class = true
 
 
