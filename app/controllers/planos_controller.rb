@@ -69,6 +69,6 @@ class PlanosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plano_params
-      params.require(:plano).permit(:nome, :premio_mensal, :papel, :acomodacao, :aseguradora_id)
+      params.require(:plano).permit(:nome, :premio_mensal, :papel, :acomodacao,)
     end
 end
