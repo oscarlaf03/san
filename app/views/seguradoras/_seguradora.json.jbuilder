@@ -1,2 +1,2 @@
 json.extract! seguradora, *Seguradora.params
-json.url seguradora_url(seguradora, format: :json)
+json.url api_v1_seguradora_url(seguradora, format: :json)

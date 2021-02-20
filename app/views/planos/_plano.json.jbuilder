@@ -1,2 +1,2 @@
 json.extract! plano, *Plano.params
-json.url plano_url(plano, format: :json)
+json.url api_v1_seguradora_plano_url(plano.seguradora,plano, format: :json)
