@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         resources :beneficiarios
         resources :organizacao_planos, path: 'planos'
         resources :condicoes
+        resources :beneficios
 
       end
       resources :seguradoras do

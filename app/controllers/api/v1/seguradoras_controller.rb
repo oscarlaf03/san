@@ -19,7 +19,7 @@ class Api::V1::SeguradorasController < Api::V1::BaseController
 
   def update
     if @seguradora.update(seguradora_params)
-      render :show, status: :created
+      render :show
     else
       render_error(@seguradora)
     end
