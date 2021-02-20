@@ -1,4 +1,4 @@
-class OrganizacaoPlano < ApplicationRecord
+class OrganizacaoPlano < BaseModel
   belongs_to :plano
   belongs_to :organizacao
 end

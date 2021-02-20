@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :seguradoras do
         resources :planos
       end
+      resources :organizacao_planos
     end
   end
   root to: 'pages#home'
