@@ -37,6 +37,6 @@ class Api::V1::BeneficiosController < Api::V1::BaseController
   end
 
   def beneficio_params
-    params.require(:beneficio).permit(*Beneficio.params)
+    params.require(:beneficio).permit(*Beneficio.params, beneficio_condicao_attributes:[*BeneficioCondicao.params, :_destroy])
   end
 end
