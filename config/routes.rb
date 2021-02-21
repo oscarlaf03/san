@@ -30,11 +30,13 @@ Rails.application.routes.draw do
         resources :organizacao_planos, path: 'planos'
         resources :condicoes
         resources :beneficios
+        resources :users, controller: 'organizacao_users', only: [:index,:create]
 
       end
       resources :seguradoras do
         resources :planos
       end
+      resources :users
       resources :organizacao_planos, only: [:create,:update]
     end
   end
