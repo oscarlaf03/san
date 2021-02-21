@@ -49,10 +49,7 @@ class ApplicationPolicy
 
   def only_internal_users
     return false if !user.kind_of?(User)
-    internal_roles.each do |role|
-      return true if user.has_role? role
-    end
-    false
+    user.internal?
   end
 
   def only_record_members(record=@record)

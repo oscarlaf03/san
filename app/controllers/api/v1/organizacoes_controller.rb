@@ -6,10 +6,12 @@ class Api::V1::OrganizacoesController < Api::V1::BaseController
   end
 
   def show
+    authorize @organizacao
   end
 
   def create
     @organizacao = Organizacao.new(organizacao_params)
+    authorize @organizacao
     if @organizacao.save
       render :show, status: :created
     else
@@ -18,6 +20,7 @@ class Api::V1::OrganizacoesController < Api::V1::BaseController
   end
 
   def update
+    authorize @organizacao
     if @organizacao.update(organizacao_params)
       render :show
     else
