@@ -13,8 +13,14 @@ Doorkeeper.configure do
   #   #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
   # end
   resource_owner_from_credentials do |_routes|
-    User.authenticate(params[:email], params[:password])
-    Beneficiario.authenticate(params[:email], params[:password])
+    if params[:user_type].present?
+      case params[:user_type]
+      when 'user'
+        User.authenticate(params[:email], params[:password])
+      when 'beneficiario'
+        Beneficiario.authenticate(params[:email], params[:password])
+      end
+    end
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
