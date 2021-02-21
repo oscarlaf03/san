@@ -15,7 +15,7 @@ class Api::V1::BaseController < ActionController::API
 
     # helper method to access the current user from the token
     def current_user
-      @current_user ||= User.find_by(id: doorkeeper_token[:resource_owner_id])
+      @current_user = User.find_by(id: doorkeeper_token[:resource_owner_id]) || Beneficiario.find_by(id: doorkeeper_token[:resource_owner_id])
     end
 
     def user_not_authorized
