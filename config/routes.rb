@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   resources :conta_bancarias
   resources :seguradoras
   resources :planos

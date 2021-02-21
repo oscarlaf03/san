@@ -100,6 +100,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    doorkeeper (5.4.0)
+      railties (>= 5)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -307,6 +309,7 @@ DEPENDENCIES
   cpf_cnpj
   database_cleaner-active_record
   devise
+  doorkeeper (~> 5.4.0)
   dotenv-rails
   factory_bot_rails
   faker!
