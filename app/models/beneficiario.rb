@@ -38,6 +38,11 @@ class Beneficiario < BaseUser
     confirmed? ? super : false
   end
 
+  def self.authenticate(email, password)
+    beneficiario = Beneficiario.find_for_authentication(email: email)
+    beneficiario&.valid_password?(password) ? beneficiario : nil
+  end
+
   private
 
   def titular_nao_pode_ter_titular

@@ -1,3 +1,14 @@
+p "Creating Oauth applications"
+
+if Doorkeeper::Application.find_by(name: "san_web").nil?
+  Doorkeeper::Application.create(name: "san_web", redirect_uri: "", scopes: "")
+end
+
+
+if Doorkeeper::Application.find_by(name: "san_app").nil?
+  Doorkeeper::Application.create(name: "san_app", redirect_uri: "", scopes: "")
+end
+
 
 p "Creating internal users"
 
