@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  use_doorkeeper
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications, :authorized_applications
+  end
+
   resources :conta_bancarias
   resources :seguradoras
   resources :planos
@@ -14,16 +17,20 @@ Rails.application.routes.draw do
     unlocks: "users/unlocks"
   }
 
-  devise_for :beneficiarios, path: 'b', controllers: { 
+  devise_for :beneficiarios, path: 'b', controllers: {
     sessions: "beneficiarios/sessions",
     passwords: "beneficiarios/passwords",
     registrations: "beneficiarios/registrations",
     confirmations: "beneficiarios/confirmations",
     unlocks: "beneficiarios/unlocks"
   }
+
+
   resources :organizacoes do
     resources :beneficiarios
   end
+
+
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       resources :organizacoes do
