@@ -39,6 +39,8 @@ gem 'simple_form'
 gem 'semantic-ui-sass'
 gem "cocoon"
 gem 'rack-cors'
+gem "figaro"
+
 
 
 
