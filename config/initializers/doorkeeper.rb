@@ -365,7 +365,13 @@ Doorkeeper.configure do
 
   use_refresh_token
 
+  if Doorkeeper::Application.find_by(name: 'san_web').nil?
+    Doorkeeper::Application.create(name: 'san_web', uid: ENV['SAN_WEB_UID'], secret: ENV['SAN_WEB_SECRET'])
+  end
 
+  if Doorkeeper::Application.find_by(name: 'san_app').nil?
+    Doorkeeper::Application.create(name: 'san_app', uid: ENV['SAN_APP_UID'], secret: ENV['SAN_APP_SECRET'])
+  end
 
 
   # Allows to customize OAuth grant flows that +each+ application support.
