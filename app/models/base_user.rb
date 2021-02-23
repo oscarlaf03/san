@@ -34,4 +34,13 @@ class BaseUser < BaseModel
   def name
     self.kind_of?(User) ?  "#{self.first_name} #{self.last_name}" :  "#{self.nome} #{self.sobre_nome}"
   end
+
+  def user_type
+    if self.kind_of?(User)
+      self.client_user? ? 'empresa' : 'interno'
+    elsif self.kind_of?(Beneficiario)
+      self.titular? ? 'titular' : 'dependente'
+    end
+  end
+
 end

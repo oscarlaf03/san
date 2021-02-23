@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   use_doorkeeper do
+    controllers tokens: 'custom_tokens'
     skip_controllers :authorizations, :applications, :authorized_applications
+
   end
 
   resources :conta_bancarias
