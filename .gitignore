@@ -13,6 +13,9 @@
 !/log/.keep
 !/tmp/.keep
 
+# Vs code config
+.vscode/
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
