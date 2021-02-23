@@ -6,6 +6,7 @@ FactoryBot.define do
     password {"123123"}
     phone {Faker::Number.number(digits: 11)}
     organizacao { nil }
+    after(:create) { |user| user.confirm }
   end
 end
 
