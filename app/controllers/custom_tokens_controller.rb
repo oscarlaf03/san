@@ -16,6 +16,9 @@ class CustomTokensController < Doorkeeper::TokensController
         user = Beneficiario.find(response.token.resource_owner_id) rescue nil
       end
 
+      response.token.model_user_type  = user.model_name.to_s.downcase
+      response.token.save
+
       unless user.nil?
         ### If you want to render user with template
         ### create an ActionController to render out the user
