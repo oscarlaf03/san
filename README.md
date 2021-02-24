@@ -114,5 +114,3 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 ```
 200 OK
 ```
-
-e
