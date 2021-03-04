@@ -40,7 +40,7 @@ Fazer um POST request no endpoint `/oauth/token` passando no json body
 O  app tem dois models de usuário cuja sessão é gerenciada pelo Devise
 
 **`User`** model representa dois tipos do usuários que gerenciam `Beneficiarios` e/ou `Organizacoes`:
- - o usuário "cliente_interno" só gerencia usuários da própria `Organizacao`, `Beneficiarios` da própria `Organizacao` e atributos da própria `Organizacao` exemplo: `user.client_user? # true ou false` 
+ - o usuário "organizacao" só gerencia usuários da própria `Organizacao`, `Beneficiarios` da própria `Organizacao` e atributos da própria `Organizacao` exemplo: `user.client_user? # true ou false` 
  - o usuário "interno" representa o funcionário da Sanus que gerencia diversas  `organizacoes` e diversos `beneficiarios` exemplo: `user.internal? # true ou false`
 
 Ambos casos de login deste tipo de usuário deve ser feito passando: `"user_type": "user"`
@@ -85,18 +85,21 @@ curl --location --request POST 'http://localhost:3000/oauth/token' \
 
 ```
 
-**exemplo de response é igual para o User e para o Beneficiario**
+**exemplo de response**
 
 ```
 {
     "access_token": "00JJOhrteK-pVaxDIPGiw-5MTiGUDOlrrnU2Go7HbtM",
     "token_type": "Bearer",
+    "user_scope": "organizacao",
     "expires_in": 86400,
     "refresh_token": "nu5RAWyUlfkkq39fLVnq0wkK1TgLLDdaTm1AY_Rg6sM",
     "created_at": 1613939644
 }
 
 ```
+O campo **user_scope** determina que tipo de usuário com base as decrições anteriores, com esse dado o front sabe para que página redirecionar o usuário após o login
+
 
 Agora você pode bater nos endpoints `api/v1`  passando to token como "`Bearer TOKEN`" no header de "`Authorization`"
 
