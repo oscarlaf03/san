@@ -1,10 +1,12 @@
 class OrganizacaoPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.internal?
+      if user.internal? 
         scope.all
-      else
+      elsif user.organizacao?
         scope.where(id: user.organizacao_id)
+      else
+        raise Pundit::NotAuthorizedError, 'Ação não permitida'
       end
     end
   end
@@ -14,7 +16,7 @@ class OrganizacaoPolicy < ApplicationPolicy
   end
 
   def index?
-    only_internal_users
+    internal_users_or_record_members_users
   end
 
   def create?

@@ -15,7 +15,7 @@ class BaseUser < BaseModel
     self.kind_of?(User)  ? self.internal? : false
   end
 
-  def client_user?
+  def organizacao?
     self.kind_of?(User)  ? self.organizacao.present? : false
   end
 

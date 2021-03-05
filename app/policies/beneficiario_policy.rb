@@ -3,7 +3,7 @@ class BeneficiarioPolicy < ApplicationPolicy
     def resolve
       if user.internal?
         scope.all
-      elsif user.client_user?
+      elsif user.organizacao?
         scope.where(organizacao_id: user.organizacao_id)
       elsif user.titular?
         scope.where(id: user.id).or(scope.where(titular_id: user.id))
