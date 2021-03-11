@@ -1,0 +1,13 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= user.name %></h5>
+    <p class="card-text">
+      <ul>
+        <li><%= user.email%></li>
+        <li><%= user.phone%></li>
+      </ul>
+    </p>
+    <%= link_to edit_button, edit_organizacao_user_path(user.organizacao, user) %>
+
+  </div>
+</div>

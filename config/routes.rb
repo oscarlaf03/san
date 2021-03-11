@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
 
   resources :organizacoes do
+    resources :users, controller: 'organizacao_users', path: 'users'
     resources :beneficiarios
   end
 

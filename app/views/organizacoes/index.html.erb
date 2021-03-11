@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
   <h1>Organizacoes</h1>
+  <%= link_to 'Criar nova organização', new_organizacao_path ,class: 'btn btn-light-blue' if internal_user? %>
+
 
   <table class='ui celled table'>
     <thead>
@@ -36,4 +38,3 @@
 
   <br>
 
-  <%= link_to 'Criar nova organização', new_organizacao_path ,class: 'btn btn-light-blue' if internal_user? %>

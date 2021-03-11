@@ -1,0 +1,9 @@
+<h1>organizacao_users_index</h1>
+<div class="container">
+  <div class="row">
+    <% @users.each do |user|  %>
+      <%= render 'organizacao_users/card_org_user' , user: user %>
+    <%end%>
+
+  </div>
+</div>
