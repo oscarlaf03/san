@@ -1,0 +1,10 @@
+<%= simple_form_for([@organizacao, @organizacao_plano],
+    url: organizacao_organizacao_plano_index_path(@organizacao),
+    method: :post,
+    html: {class: 'form-model'}
+  ) do |f| %>
+    <div class="form-group">
+      <%= f.input :plano_id, label: "Plano", collection: @planos, label_method: :name %>
+    </div>
+    <%= f.button :submit, 'Adicionar Plano' , class: 'btn-primary'%>
+<% end%>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :organizacoes do
     resources :users, controller: 'organizacao_users', path: 'users'
+    resources :organizacao_plano, controller: 'organizacao_planos', path: 'planos'
     resources :beneficiarios
   end
 

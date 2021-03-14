@@ -1,7 +1,10 @@
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
-    <h1>Beneficiarios</h1>
+  <h1>Beneficiarios</h1>
 
+  <div class="container  m-3 p-3">
+    <%= link_to 'Adicionar Beneficiario', new_organizacao_beneficiario_path,  class: 'btn btn-light-blue' %>
+  </div>
     <table class='ui celled table'>
       <thead>
         <tr>
@@ -30,6 +33,4 @@
       </tbody>
     </table>
 
-    <br>
-    <%= link_to 'Adicionar Beneficiario', new_organizacao_beneficiario_path,  class: 'btn btn-light-blue' %>
 </div>

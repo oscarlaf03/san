@@ -1,0 +1,29 @@
+<div class="card organizacao-info-card">
+  <div class="model-card">
+    <div class="card-body">
+      <h5>
+          Nome do plano: <%= plano.nome %>
+      </h5>
+      <h5>
+        Seguradora: <%= plano.seguradora.nome%>
+      </h5>
+      <div class="card-text">  
+        <p>
+          <strong>Premio mensal:</strong>
+          <%= plano.premio_mensal%>
+        </p>
+        <p>
+          <strong>Papel</strong>
+          <%= plano.papel %>
+        </p>
+        <p>
+          <strong>Acomodaçaõ</strong>
+          <%= plano.acomodacao %>
+        </p>
+      </div>
+      <% org_plano =  OrganizacaoPlano.find_by(plano: plano, organizacao: @organizacao) %>
+      <%= link_to delete_button, organizacao_organizacao_plano_path(org_plano.organizacao, org_plano), method: "delete", data:{confirm: "Têm certeza?"} %>
+    </div>
+
+  </div>
+</div>

@@ -28,5 +28,11 @@ module ApplicationHelper
     '<div class="ui icon button blue" data-tooltip="Voltar"><i class="arrow left icon"></i></div>'.html_safe
   end
 
+  def delete_button
+    '<div class="ui icon button red" data-tooltip="Excluir"><i class=" white trash alternate icon"></i></div>'.html_safe
+  end
+
+
+
 
 end

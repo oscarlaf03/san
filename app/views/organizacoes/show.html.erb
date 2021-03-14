@@ -15,9 +15,25 @@
   </div>
   <div class="row">
     <h2>Beneficiarios</h2>
-    <%= link_to "beneficarios", organizacao_beneficiarios_path(@organizacao) %>
+    <div class="container m-3 p-3 ">
+      <%= link_to " Ver beneficarios", organizacao_beneficiarios_path(@organizacao), class: 'btn-lg btn-primary' %>
+    </div>
   </div>
 
+
+  <% if current_user.internal? %>
+    <div class="row">
+      <h2>Planos activos para empresa: <%= @organizacao.nome_fantasia %></h2>
+      <div class="container m-3 p-3 ">
+        <div class="row">
+          <% @organizacao.planos.each do |plano| %>
+            <%= render 'plano_card', plano: plano %>
+          <% end %>
+        </div>
+        <%= link_to " Adicionar plano ", new_organizacao_organizacao_plano_path(@organizacao), class: 'btn-lg btn-primary' %>
+      </div>
+    </div>
+  <% end %>
 
   <%= link_to back_button, organizacoes_path %>
 </div>
