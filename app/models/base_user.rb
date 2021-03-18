@@ -37,7 +37,7 @@ class BaseUser < BaseModel
 
   def user_type
     if self.kind_of?(User)
-      self.client_user? ? 'organizacao' : 'interno'
+      self.internal? ? 'interno' : 'organizacao'
     elsif self.kind_of?(Beneficiario)
       self.titular? ? 'titular' : 'dependente'
     end
