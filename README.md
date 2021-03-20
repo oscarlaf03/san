@@ -117,3 +117,40 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 ```
 200 OK
 ```
+## Reset da senha
+
+### Novo endpoint POST `api/password_reset` 
+
+#### Body
+
+**exemplo de body válido**
+```
+{
+    "email": A_VALID_EMAIL_ADREESS,
+    "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
+    "client_id": ID_DO_APP_COMO_NO_LOGIN,
+    "client_secret": ID_SECRET_DO_APP_COMO_NO_LOGIN
+}
+
+```
+
+**exemplo response 200 OK**
+
+```
+{
+    "message": "Instruções para resetar senha enviadas com sucesso ao email: allana@example.com"
+}
+```
+
+**exemplo response 400 Bad Request**
+```
+{
+    "message": "Problemas no seu chamado",
+    "errors": [
+        "'user_type' só pode ser 'user' ou 'beneficiario' e não use222r",
+        " 22 não é um endereço válido de email valido",
+        "Parâmetros de client_id e/ou client_secret são inválidos"
+    ]
+}
+```
+
