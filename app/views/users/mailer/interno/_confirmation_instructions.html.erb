@@ -1,0 +1,8 @@
+<h1>Welcome user interno</h1>
+<h2><%= @resource.name %></h2>
+<p>Welcome email<%= @email %>!</p>
+<h2>you are a <%= @resource.user_type %></h2>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
