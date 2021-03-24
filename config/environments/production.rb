@@ -66,9 +66,10 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   ##### OO ajustar na hora de configurar o email
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'https://sanus.tech/' }
+  config.action_mailer.default_url_options = { :host => 'https://san-api-hmg.herokuapp.com' }
 
 
 
