@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     post 'password_reset' , to: 'passwords#reset'
+    post 'confirm_user', to: 'confirmations#confirm'
     namespace :v1 do
       resources :organizacoes do
         resources :beneficiarios

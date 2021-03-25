@@ -154,3 +154,50 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 }
 ```
 
+
+
+## Confirmação da conta via token e persistência da senha
+
+### Novo endpoint POST `api/confirm-user` 
+
+Este endpoint deve receber o token que foi enviado no email do usuário na hora de criara a sua conta junto com os valores de `password` e `password_confirmation` para validação da senha
+
+
+#### Body
+
+**exemplo de body válido**
+```
+
+{
+    "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
+    "client_id": ID_DO_APP_COMO_NO_LOGIN,
+    "client_secret": ID_SECRET_DO_APP_COMO_NO_LOGIN
+    "token": TOKEN_GERADO_POR_DEVISE_ENVIADO_NO_LINK_DO_EMAIL,
+    "password": UM_PASSWORD_VALIDO,
+    "password_confirmation": UM_PASSWORD_VALIDO
+}
+
+```
+
+**exemplo response 200 OK**
+
+```
+{
+    "message": "Conta  e senha de   de email test5_confirm@email.com confirmadas com sucesso"
+}
+```
+
+**exemplo response 400 Bad Request**
+```
+{
+    "message": "Problemas no seu chamado",
+    "errors": [
+        "O parâmetro: token é obrigatório",
+        "O parâmetro: password_confirmation é obrigatório",
+        "'user_type' só pode ser 'user' ou 'beneficiario' e não user333",
+        "Parâmetros de client_id e/ou client_secret são inválidos",
+        "password e password_confirmation têm que ser iguais"
+    ]
+}
+```
+
