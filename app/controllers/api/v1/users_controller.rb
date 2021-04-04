@@ -2,14 +2,17 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only:[:show, :update]
 
   def index
-    @users = User.all
+    authorize User
+    @users = policy_scope(User)
   end
 
   def show
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
     if @user.save
       render :show, status: :created
     else
@@ -18,6 +21,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
+    authorize @user
     if @user.update(user_params)
       render :show
     else

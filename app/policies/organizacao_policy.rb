@@ -16,7 +16,7 @@ class OrganizacaoPolicy < ApplicationPolicy
   end
 
   def index?
-    internal_users_or_record_members_users
+    user.internal? || user.organizacao?
   end
 
   def create?

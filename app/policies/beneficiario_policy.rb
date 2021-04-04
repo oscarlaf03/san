@@ -14,7 +14,7 @@ class BeneficiarioPolicy < ApplicationPolicy
   end
 
   def show?
-    only_internal_users || self?
+    internal_or_org_users || self?
   end
 
   def index?
@@ -22,11 +22,11 @@ class BeneficiarioPolicy < ApplicationPolicy
   end
 
   def create?
-    only_internal_users
+    internal_or_org_users
   end
 
   def update?
-    only_internal_users
+    update?
   end
 
 end

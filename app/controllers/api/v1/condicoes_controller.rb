@@ -1,16 +1,20 @@
 class Api::V1::CondicoesController < Api::V1::BaseController
   before_action :set_condicao, only: [:show, :update]
   before_action :set_organizacao, only: [:create,:index]
+  skip_after_action :verify_policy_scoped
 
   def index
+    authorize @organizacao
     @condicoes = Condicao.where(organizacao: @organizacao)
   end
 
   def show
+    authorize @condicao
   end
 
   def create
     @condicao = @organizacao.condicoes.build(condicao_params)
+    authorize @condicao
     if @condicao.save
       render :show, status: :created
     else
@@ -19,6 +23,7 @@ class Api::V1::CondicoesController < Api::V1::BaseController
   end
 
   def update
+    authorize @condicao
     if @condicao.update(condicao_params)
       render :show, status: :created
     else

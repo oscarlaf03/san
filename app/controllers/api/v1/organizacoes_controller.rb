@@ -2,6 +2,7 @@ class Api::V1::OrganizacoesController < Api::V1::BaseController
   before_action :set_organizacao, only:[:show, :update]
 
   def index
+    authorize Organizacao
     @organizacoes = policy_scope(Organizacao)
   end
 
@@ -35,7 +36,7 @@ class Api::V1::OrganizacoesController < Api::V1::BaseController
   end
 
   def organizacao_params
-    params.require(:organizacao).permit(*Organizacao.params)
+    params.require(:organizacao).permit(*Organizacao.params, endereco_attributes: [*Endereco.params, :_destroy])
   end
 
 end

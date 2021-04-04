@@ -2,14 +2,17 @@ class Api::V1::SeguradorasController < Api::V1::BaseController
   before_action :set_seguradora, only:[:show, :update]
 
   def index
-    @seguradoras = Seguradora.all
+    authorize Seguradora
+    @seguradoras = policy_scope(Seguradora)
   end
 
   def show
+    authorize @seguradora
   end
 
   def create
     @seguradora = Seguradora.new(seguradora_params)
+    authorize @seguradora
     if @seguradora.save
       render :show, status: :created
     else
@@ -18,6 +21,7 @@ class Api::V1::SeguradorasController < Api::V1::BaseController
   end
 
   def update
+    authorize @seguradora
     if @seguradora.update(seguradora_params)
       render :show
     else

@@ -1,16 +1,20 @@
 class Api::V1::BeneficiariosController < Api::V1::BaseController
   before_action :set_beneficiario, only: [:show,:update]
   before_action :set_organizacao, only: [:create, :update, :index]
+  skip_after_action :verify_policy_scoped
 
   def index
+    authorize @organizacao
     @beneficiarios = Beneficiario.where(organizacao: @organizacao)
   end
 
   def show
+    authorize @beneficiario
   end
 
   def create
     @beneficiario = @organizacao.beneficiarios.build(beneficiario_params)
+    authorize @beneficiario
     if @beneficiario.save
       render :show, status: :created
     else
@@ -19,6 +23,7 @@ class Api::V1::BeneficiariosController < Api::V1::BaseController
   end
 
   def update
+    authorize @beneficiario
     if @beneficiario.update(beneficiario_params)
       render :show, status: :created
     else

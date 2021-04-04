@@ -28,7 +28,7 @@ class CustomTokensController < Doorkeeper::TokensController
 
         ### Or if you want to just append user using 'as_json'
         body[:user_id] = user.id.as_json
-        body[:user_scope] = user.user_type.as_json
+        body[:user_scope] = user.user_scope.as_json
       end
     end
 
