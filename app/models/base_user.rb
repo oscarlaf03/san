@@ -56,7 +56,7 @@ class BaseUser < BaseModel
   end
 
   def self.params
-    super + [:user_scope, :user_type, :full_name]
+    super + [:user_scope, :user_type, :full_name] - [:encrypted_password, :reset_password_token, :reset_password_sent_at , :confirmation_token]
   end
 
 end
