@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     post 'password_reset' , to: 'passwords#reset'
     post 'confirm_user', to: 'confirmations#confirm'
     namespace :v1 do
+      get 'me', to: 'me#me'
       resources :organizacoes do
         resources :beneficiarios
         resources :organizacao_planos, path: 'planos'

@@ -31,16 +31,32 @@ class BaseUser < BaseModel
     self.kind_of?(Beneficiario)
   end
 
+  def user?
+    self.kind_of?(User)
+  end
+
   def name
     self.kind_of?(User) ?  "#{self.first_name} #{self.last_name}" :  "#{self.nome} #{self.sobre_nome}"
   end
 
-  def user_type
-    if self.kind_of?(User)
+  def full_name
+    name
+  end
+
+  def user_scope
+    if self.user?
       self.internal? ? 'interno' : 'organizacao'
-    elsif self.kind_of?(Beneficiario)
+    elsif self.beneficiario?
       self.titular? ? 'titular' : 'dependente'
     end
+  end
+
+  def user_type
+    self.user? ? 'user' : 'beneficiario'
+  end
+
+  def self.params
+    super + [:user_scope, :user_type, :full_name]
   end
 
 end
