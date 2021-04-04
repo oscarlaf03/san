@@ -7,4 +7,8 @@ class Plano < BaseModel
   def name
     "#{self.seguradora.nome} -- #{self.nome}"
   end
+
+  def nome_seguradora
+    self.seguradora ? self.seguradora.nome : nil
+  end
 end

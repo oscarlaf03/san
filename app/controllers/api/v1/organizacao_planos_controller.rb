@@ -1,16 +1,20 @@
 class Api::V1::OrganizacaoPlanosController < Api::V1::BaseController
   before_action :set_organizacao_plano , only: [:show, :update]
   before_action :set_organizacao, only: [:index,:create, :update]
+  skip_after_action :verify_policy_scoped
 
   def index
+    authorize @organizacao
     @organizacao_planos = OrganizacaoPlano.where(organizacao: @organizacao)
   end
 
   def show
+    authorize @organizacao_plano
   end
 
   def create
     @organizacao_plano = @organizacao.organizacao_planos.build(organizacao_plano_params)
+    authorize @organizacao_plano
     if @organizacao_plano.save
       render :show, status: :created
     else
@@ -19,6 +23,7 @@ class Api::V1::OrganizacaoPlanosController < Api::V1::BaseController
   end
 
   def update
+    authorize @organizacao_plano
     if @organizacao_plano.update(organizacao_plano_params)
       render :show
     else

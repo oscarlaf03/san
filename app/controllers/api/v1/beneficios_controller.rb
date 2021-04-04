@@ -1,16 +1,20 @@
 class Api::V1::BeneficiosController < Api::V1::BaseController
   before_action :set_organizacao, only: [:index]
   before_action :set_beneficio, only: [:show, :update]
+  skip_after_action :verify_policy_scoped
 
   def index
+    authorize @organizacao
     @beneficios = @organizacao.beneficios
   end
 
   def show
+    authorize @beneficio
   end
 
   def create
     @beneficio = Beneficio.new(beneficio_params)
+    authorize @beneficio
     if @beneficio.save
       render :show, status: :created
     else
@@ -19,6 +23,7 @@ class Api::V1::BeneficiosController < Api::V1::BaseController
   end
 
   def update
+    authorize @beneficio
     if @beneficio.update(beneficio_params)
       render :show
     else

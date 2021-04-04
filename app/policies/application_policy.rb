@@ -83,7 +83,12 @@ class ApplicationPolicy
   end
 
   def internal_or_org_users_or_record_member(record=@record)
-    only_internal_users || only_org_users(record) || only_record_members(record)
+    internal_or_org_users(record) || only_record_members(record)
+  end
+
+  def internal_or_self(record=@record)
+    only_internal_users || self?
+
   end
 
   class Scope

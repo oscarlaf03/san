@@ -2,6 +2,7 @@ class Api::V1::OrganizacoesController < Api::V1::BaseController
   before_action :set_organizacao, only:[:show, :update]
 
   def index
+    authorize Organizacao
     @organizacoes = policy_scope(Organizacao)
   end
 
