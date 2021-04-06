@@ -254,7 +254,7 @@
               >
                 <div style="line-height: 40px">
                   <a
-                    href="<%= confirmation_url(@resource, confirmation_token: @token) %>"
+                    href="<%= @resource.confirm_account_url %>"
                     style="color: #ffffff; text-decoration: none"
                     >Confirmar conta</a
                   >
