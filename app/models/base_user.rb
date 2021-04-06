@@ -59,4 +59,12 @@ class BaseUser < BaseModel
     super + [:user_scope, :user_type, :full_name] - [:encrypted_password, :reset_password_token, :reset_password_sent_at , :confirmation_token]
   end
 
+  def confirm_account_url
+    "https://san-web-app.herokuapp.com/registrar/#{self.user? ? 'usuario': 'beneficiario'}/#{self.confirmation_token}"
+  end
+
+  def reset_password_url
+    "https://san-web-app.herokuapp.com/forgot-password/#{self.user? ? 'usuario' : 'beneficiario'}/confirm/#{self.confirmation_token}"
+  end
+
 end
