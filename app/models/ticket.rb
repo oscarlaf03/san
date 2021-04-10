@@ -9,10 +9,41 @@ class Ticket < ApplicationRecord
   validates :id_model, absence: true, if: :is_create_action?
   validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_an_existent_record
 
+
+
+    def process
+      case action
+      when 'update'
+        constant.find(id_model).update(**parsed_params)
+      when 'create'
+        element = constant.new(**parsed_params)
+        if element.attributes.keys.include?('organizacao_id')
+          element.organizacao_id = self.organizacao.id
+        end
+        element.save
+      when 'destroy'
+        constant.find(id_model).destroy
+      end
+    end
+
   private
+
+  def constant
+    name_model.constantize
+  end
+
+  def parsed_params
+    unless is_destroy_action?
+      JSON.parse(params).deep_symbolize_keys!
+    end
+  end
 
   def is_create_action?
     action  == 'create'
+  end
+
+  def is_destroy_action?
+    action == 'destroy '
   end
 
   def owner_is_internal_user

@@ -103,4 +103,36 @@ RSpec.describe Ticket, type: :model do
       expect( org_user.organizacao.requests.size).to eq(Ticket.select{ |t| t.requestor.organizacao == org_user.organizacao }.size)
     end
   end
+
+  context "Instance methods" do
+
+    it "#process -- update" do
+      guinea_pig = create(:user)
+      new_email =  'updated_via_ticket@example.com'
+      ticket = create(:ticket, name_model: 'User', id_model: guinea_pig.id,action:'update', requestor: org_user, params: {email:new_email}.to_json)
+      ticket.process
+      expect(User.find(guinea_pig.id).email).to eq(new_email)
+    end
+
+    it "#process -- create" do
+      params ={
+        email:  'created_via_ticket_process@example.com',
+        nome: 'nome via ticket',
+        sobre_nome: 'sobrenome via ticket creted',
+        cpf: Faker::IDNumber.brazilian_citizen_number,
+        # organizacao: org_user.organizacao,
+        genero: 'homem',
+      }
+      ticket = create(:ticket, name_model: 'Beneficiario',action: 'create', requestor: org_user, params: params.to_json  )
+      ticket.process
+      expect(Beneficiario.last.nome).to eq(params[:nome])
+    end
+
+    it "#process -- destroy" do
+      guinea_pig = create(:user)
+      ticket = create(:ticket, name_model: 'User', id_model: guinea_pig.id,action: 'destroy', requestor: org_user  )
+      ticket.process
+      expect(User.find_by(id: guinea_pig.id)).to be nil
+    end
+  end
 end
