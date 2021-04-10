@@ -2,6 +2,21 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
+  context "Ticket should be valid" do
+    let(:internal_user) { create(:user)}
+    let(:requestor) {user_with_organizacao}
+
+    it "without 'id_model' for 'create' action" do
+      ticket = build(:ticket, requestor: requestor, action: 'create')
+
+      # binding.pry
+      expect(ticket.valid?).to be true
+    end
+
+
+    
+  end
+
   context "Ticket should not be valid" do
 
     it "without requestor" do
@@ -20,12 +35,12 @@ RSpec.describe Ticket, type: :model do
     end
 
     it "without name_model" do
-      ticket = build(:ticket, name_model: nil)
+      ticket = build(:ticket, name_model: nil, id_model: nil, action:'create')
       expect(ticket.valid?).to be false
     end
 
     it "with unknown name_model constant" do
-      ticket = build(:ticket,name_model:"Perro")
+      ticket = build(:ticket,name_model:"Perro", action: 'create', id_model: nil)
       expect(ticket.valid?).to be false
     end
 
@@ -36,6 +51,21 @@ RSpec.describe Ticket, type: :model do
 
     it "with and invalid action" do
       ticket = build(:ticket,action: "INVALID_ACTION")
+      expect(ticket.valid?).to be false
+    end
+
+    it "without id_model for a not create action" do
+      ticket = build(:ticket,action: 'update', id_model:nil)
+      expect(ticket.valid?).to be false
+    end
+
+    it "with any id_model value for create action" do
+      ticket = build(:ticket,action: 'create', id_model:999999)
+      expect(ticket.valid?).to be false
+    end
+
+    it "Pointing to a nonexistent object for a non-create action" do
+      ticket = build(:ticket,action: 'update', id_model:999999999)
       expect(ticket.valid?).to be false
     end
 
