@@ -7,6 +7,7 @@ class Ticket < ApplicationRecord
   message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy'] "}
   validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
   validates :id_model, absence: true, if: :is_create_action?
+  validates :params, presence: true, json: true,  unless: :is_destroy_action?
   validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_an_existent_record
 
 
@@ -26,7 +27,17 @@ class Ticket < ApplicationRecord
       end
     end
 
+
+
   private
+
+  def is_create_action?
+    action == 'create'
+  end
+
+  def is_destroy_action?
+    action == 'destroy'
+  end
 
   def constant
     name_model.constantize
@@ -38,13 +49,6 @@ class Ticket < ApplicationRecord
     end
   end
 
-  def is_create_action?
-    action  == 'create'
-  end
-
-  def is_destroy_action?
-    action == 'destroy '
-  end
 
   def owner_is_internal_user
     if owner.present? && !owner.internal?
