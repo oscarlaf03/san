@@ -12,21 +12,20 @@ class Ticket < ApplicationRecord
 
 
 
-    def process
-      case action
-      when 'update'
-        constant.find(id_model).update(**parsed_params)
-      when 'create'
-        element = constant.new(**parsed_params)
-        if element.attributes.keys.include?('organizacao_id')
-          element.organizacao_id = self.organizacao.id
-        end
-        element.save
-      when 'destroy'
-        constant.find(id_model).destroy
+  def process
+    case action
+    when 'update'
+      constant.find(id_model).update(**parsed_params)
+    when 'create'
+      element = constant.new(**parsed_params)
+      if element.attributes.keys.include?('organizacao_id')
+        element.organizacao_id = self.organizacao.id
       end
+      element.save
+    when 'destroy'
+      constant.find(id_model).destroy
     end
-
+  end
 
 
   private
