@@ -1,4 +1,4 @@
-class Ticket < ApplicationRecord
+class Ticket < BaseModel
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
   delegate :organizacao, to: :requestor, allow_nil: true
@@ -8,23 +8,44 @@ class Ticket < ApplicationRecord
   validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
   validates :id_model, absence: true, if: :is_create_action?
   validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_an_existent_record
+  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_existent_org_record
 
 
 
-  def process
+  def execute!
+    return true if executed
     case action
     when 'update'
-      constant.find(id_model).update(**parsed_params)
+       if instance.update(**parsed_params)
+        close_executed
+       else
+        copy_errors_from_instance
+        false
+       end
     when 'create'
       element = constant.new(**parsed_params)
       if element.attributes.keys.include?('organizacao_id')
         element.organizacao_id = self.organizacao.id
       end
-      element.save
+       if element.save
+        close_executed
+       else
+        copy_errors_from_instance
+        false
+       end
     when 'destroy'
-      constant.find(id_model).destroy
+       if instance.destroy
+        close_executed
+       else
+        copy_errors_from_instance
+        false
+       end
     end
+  end
+
+  def cancel!
+    return true if canceled
+    self.update(canceled: true, open: false, closed_at: DateTime.now)
   end
 
 
@@ -42,10 +63,23 @@ class Ticket < ApplicationRecord
     name_model.constantize
   end
 
+  def instance
+    constant.find(id_model)
+  end
+
+  def close_executed
+    self.update(open: false, executed: true, closed_at: DateTime.now)
+  end
+
   def parsed_params
     unless is_destroy_action?
       JSON.parse(params).deep_symbolize_keys!
     end
+  end
+
+  def copy_errors_from_instance
+    self.error.details = instance.error.details
+    self.error.messages = instance.error.messages
   end
 
 
@@ -61,10 +95,20 @@ class Ticket < ApplicationRecord
     end
   end
 
-  def points_to_an_existent_record
+  def same_org?
+    if instance.kind_of?(Organizacao)
+      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless instance == self.organizacao
+    elsif instance.respond_to?(:organizacao)
+      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless instance == self.organizacao unless instance.organizacao == self.organizacao
+    else
+      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não response ao método de Organizacao falar com suporte técnico")
+    end
+  end
+
+  def points_to_existent_org_record
     unless is_create_action?
       begin
-        name_model.constantize.find(id_model)
+        same_org?
       rescue ActiveRecord::RecordNotFound
         errors.add(:id_model, "O 'id_model':#{id_model} não existe para a clase #{name_model}")
       end

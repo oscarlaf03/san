@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_002411) do
     t.string "action"
     t.boolean "canceled", default: false
     t.boolean "open", default: true
+    t.boolean "executed", default: false
     t.integer "requestor_id", null: false
     t.integer "owner_id"
     t.datetime "closed_at"

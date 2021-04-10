@@ -13,7 +13,7 @@ class TicketPolicy < ApplicationPolicy
   end
 
   def index?
-    user.user?
+    internal_or_org_users
   end
 
   def show?
@@ -22,6 +22,14 @@ class TicketPolicy < ApplicationPolicy
 
   def create?
     user.organizacao?
+  end
+
+  def execute?
+    only_internal_users
+  end
+
+  def cancel?
+    only_org_users
   end
 
   def update?

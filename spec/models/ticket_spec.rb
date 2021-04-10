@@ -26,19 +26,20 @@ RSpec.describe Ticket, type: :model do
   end
 
   context "Ticket should not be valid" do
+    let(:requestor) {user_with_organizacao}
 
     it "without requestor" do
-      ticket = build(:ticket, requestor: nil)
+      ticket = build(:ticket, requestor: nil, action: 'create')
       expect(ticket.valid?).to be false
     end
 
     it "with internal user as requestor" do
-      ticket = build(:ticket, requestor: create(:user))
+      ticket = build(:ticket, requestor: create(:user), action:'create')
       expect(ticket.valid?).to be false
     end
 
     it "with user organizacao as owner" do
-      ticket = build(:ticket, owner: user_with_organizacao)
+      ticket = build(:ticket, owner: user_with_organizacao, action: 'create')
       expect(ticket.valid?).to be false
     end
 
@@ -83,6 +84,12 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.valid?).to be false
     end
 
+    it "Pointing to an object of another org non-create action" do
+      other_org_user = user_with_organizacao
+      ticket = build(:ticket, action: 'update', id_model:other_org_user.id, requestor: requestor, name_model:'User', params: {email: 'new_email_test@example.org'}.to_json )
+      expect(ticket.valid?).to be false
+    end
+
   end
 
   context "Ticket has associatons" do
@@ -110,7 +117,7 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.organizacao).to equal(org_user.organizacao)
     end
 
-    it "Organizacao responds to requets" do
+    it "Organizacao responds accurately to requests" do
       times.times do
         create(:ticket, requestor: org_user)
       end
@@ -119,16 +126,18 @@ RSpec.describe Ticket, type: :model do
   end
 
   context "Instance methods" do
+    let(:org_user) {user_with_organizacao}
 
-    it "#process -- update" do
-      guinea_pig = create(:user)
+
+    it "#execute! -- update" do
+      guinea_pig = create(:user, organizacao: org_user.organizacao)
       new_email =  'updated_via_ticket@example.com'
       ticket = create(:ticket, name_model: 'User', id_model: guinea_pig.id,action:'update', requestor: org_user, params: {email:new_email}.to_json)
-      ticket.process
+      ticket.execute!
       expect(User.find(guinea_pig.id).email).to eq(new_email)
     end
 
-    it "#process -- create" do
+    it "#execute! -- create" do
       params ={
         email:  'created_via_ticket_process@example.com',
         nome: 'nome via ticket',
@@ -138,14 +147,14 @@ RSpec.describe Ticket, type: :model do
         genero: 'homem',
       }
       ticket = create(:ticket, name_model: 'Beneficiario',action: 'create', requestor: org_user, params: params.to_json  )
-      ticket.process
+      ticket.execute!
       expect(Beneficiario.last.nome).to eq(params[:nome])
     end
 
-    it "#process -- destroy" do
-      guinea_pig = create(:user)
+    it "#execute! -- destroy" do
+      guinea_pig = create(:user, organizacao: org_user.organizacao)
       ticket = create(:ticket, name_model: 'User', id_model: guinea_pig.id,action: 'destroy', requestor: org_user  )
-      ticket.process
+      ticket.execute!
       expect(User.find_by(id: guinea_pig.id)).to be nil
     end
   end
