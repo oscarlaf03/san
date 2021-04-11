@@ -8,7 +8,7 @@ class Ticket < BaseModel
   validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
   validates :id_model, absence: true, if: :is_create_action?
   validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_existent_org_record
+  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_existent_org_record, :can_execute
 
 
 
@@ -77,9 +77,8 @@ class Ticket < BaseModel
     end
   end
 
-  def copy_errors_from_instance
-    self.error.details = instance.error.details
-    self.error.messages = instance.error.messages
+  def copy_errors_from_instance(object=instance)
+    errors.add( :params, object.errors.messages.to_s)
   end
 
 
@@ -113,6 +112,25 @@ class Ticket < BaseModel
         errors.add(:id_model, "O 'id_model':#{id_model} não existe para a clase #{name_model}")
       end
     end
+  end
+
+  def can_execute
+    unless is_destroy_action?
+      case action
+      when 'create'
+        object = constant.new(**parsed_params)
+        unless object.valid?
+          copy_errors_from_instance(object)
+        end
+      when 'update'
+        object = instance.assign_some_attributes(**parsed_params)
+        unless object.valid?
+          copy_errors_from_instance(object)
+        end
+      end
+    end
+  rescue ActiveRecord::RecordNotFound
+    errors.add(:id_model, "O 'id_model':#{id_model} não existe para a clase #{name_model}")
   end
 
 end
