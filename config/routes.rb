@@ -53,6 +53,9 @@ Rails.application.routes.draw do
       end
       resources :users
       resources :organizacao_planos, only: [:create,:update]
+      resources :tickets, except: [:update]
+      post 'tickets/:id/cancel', to: 'tickets#cancel'
+      post 'tickets/:id/execute', to: 'tickets#execute'
     end
   end
   root to: 'pages#home'

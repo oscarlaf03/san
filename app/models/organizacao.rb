@@ -9,6 +9,7 @@ class Organizacao < BaseModel
   has_many :beneficios, through: :organizacao_planos
   has_many :condicoes, dependent: :destroy
   has_one :endereco, dependent: :destroy
+  has_many :requests, through: :users
   accepts_nested_attributes_for :endereco,reject_if: :all_blank,  allow_destroy: true
   validates :cnpj, presence: true, cnpj: true
 end

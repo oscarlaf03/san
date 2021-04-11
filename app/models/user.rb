@@ -9,6 +9,9 @@ class User < BaseUser
   belongs_to :organizacao, optional: true
   validates :email ,presence: true, email: true
 
+  has_many :tickets, class_name: "Ticket", foreign_key: 'owner_id'
+  has_many :requests, class_name: "Ticket", foreign_key: 'requestor_id'
+
   def internal?
     organizacao.nil? && self.persisted?
   end

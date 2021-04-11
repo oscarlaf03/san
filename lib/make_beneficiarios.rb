@@ -1,5 +1,7 @@
 Organizacao.all.each do |org|
-  7.times do
-    FactoryBot.create(:beneficiario, organizacao: org)
+  if org.beneficiarios.nil?
+    2.times do
+      FactoryBot.create(:beneficiario, organizacao: org)
+    end
   end
 end
