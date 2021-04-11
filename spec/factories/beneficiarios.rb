@@ -3,7 +3,7 @@ FactoryBot.define do
     genero{ ['homem','mulher'].sample}
     nome { self.genero == 'homem' ? Faker::Name.male_first_name : Faker::Name.female_first_name }
     sobre_nome {Faker::Name.last_name  }
-    email { Faker::Internet.safe_email(name: self.nome)}
+    email { " #{self.nome.parameterize}_#{self.sobre_nome.parameterize}_#{rand.to_s.gsub('.','')}@#{%w[ google gmail yahoo excite geopages geocites].sample}.#{%w[com br mx co tv inc dev net].sample}"}
     cpf { Faker::IDNumber.brazilian_citizen_number }
     password {"123123"}
     organizacao

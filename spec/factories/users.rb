@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user, aliases:[ :owner, :requestor] do
     first_name {Faker::Name.first_name }
     last_name{ Faker::Name.last_name  }
-    email { Faker::Internet.safe_email(name: self.first_name)}
+    email { " #{self.first_name.parameterize}_#{self.last_name.parameterize}_#{rand.to_s.gsub('.','')}@#{%w[ google gmail yahoo excite geopages geocites].sample}.#{%w[com br mx co tv inc dev net].sample}"}
     password {"123123"}
     phone {Faker::Number.number(digits: 11)}
     organizacao { nil }
