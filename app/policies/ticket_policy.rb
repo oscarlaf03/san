@@ -13,7 +13,7 @@ class TicketPolicy < ApplicationPolicy
   end
 
   def index?
-    internal_or_org_users
+    user.user?
   end
 
   def show?
