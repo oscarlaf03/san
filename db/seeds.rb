@@ -72,8 +72,10 @@ Beneficiario.update_all confirmed_at: DateTime.now
 
 p "Making planos"
 Seguradora.all.each do |seg|
-  5.times do
-    FactoryBot.create(:plano, seguradora: seg)
+  if seg.planos.blank?
+    5.times do
+      FactoryBot.create(:plano, seguradora: seg)
+    end
   end
 end
 
