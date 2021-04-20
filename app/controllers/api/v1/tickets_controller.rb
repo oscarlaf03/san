@@ -10,6 +10,13 @@ class Api::V1::TicketsController < Api::V1::BaseController
     authorize @ticket
   end
 
+  def beneficiarios
+    organizacao = Organizacao.find(params[:organizacao_id])
+    authorize organizacao
+    @tickets = organizacao.requests.select{ |r| r.name_model == "Beneficiario"}
+    render :beneficiarios
+  end
+
   def create
     @ticket = Ticket.new(ticket_params)
     @ticket.requestor = current_user

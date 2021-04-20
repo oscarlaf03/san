@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'me', to: 'me#me'
       resources :organizacoes do
+        get 'beneficiarios/tickets', to: 'tickets#beneficiarios'
         resources :beneficiarios
         resources :organizacao_planos, path: 'planos'
         resources :condicoes

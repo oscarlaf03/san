@@ -31,5 +31,9 @@ class OrganizacaoPolicy < ApplicationPolicy
     false
   end
 
+  def beneficiarios?
+    show?
+  end
+
 
 end
