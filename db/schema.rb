@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_24_011709) do
+ActiveRecord::Schema.define(version: 2021_04_24_015831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
     t.string "nome_fantasia"
     t.string "inscricao_municipal"
     t.string "inscricao_estadual"
+    t.integer "matriz_id"
   end
 
   create_table "planos", force: :cascade do |t|
@@ -251,4 +252,5 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "organizacao_planos", "organizacoes"
   add_foreign_key "organizacao_planos", "planos"
+  add_foreign_key "organizacoes", "organizacoes", column: "matriz_id"
 end
