@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_002411) do
+ActiveRecord::Schema.define(version: 2021_04_24_011709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_002411) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string "parentesco"
     t.index ["confirmation_token"], name: "index_beneficiarios_on_confirmation_token", unique: true
     t.index ["email"], name: "index_beneficiarios_on_email", unique: true
     t.index ["organizacao_id"], name: "index_beneficiarios_on_organizacao_id"
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_002411) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "beneficiario_id"
     t.bigint "organizacao_plano_id"
+    t.string "carteirinha"
     t.index ["beneficiario_id"], name: "index_beneficios_on_beneficiario_id"
     t.index ["organizacao_plano_id"], name: "index_beneficios_on_organizacao_plano_id"
   end
@@ -206,6 +208,8 @@ ActiveRecord::Schema.define(version: 2021_04_08_002411) do
     t.datetime "closed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "data_inclusao"
+    t.date "data_exclusao"
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,6 +6,8 @@ class Beneficiario < BaseUser
   validates :email ,presence: true, email: true
   validates :cpf ,presence: true, cpf: true
   validates :genero ,presence: true
+  validates :parentesco, allow_nil: true,  inclusion: { in: %w( conjugue filho),
+  message: "%{value} não é uma parentesco validos, as parentesco validss são: ['conjugue', 'filho'] "}
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -22,8 +24,13 @@ class Beneficiario < BaseUser
   has_one :conta_bancaria, dependent: :destroy
   has_one :endereco, dependent: :destroy
 
+  def carteirinha
+    beneficio ? beneficio.carteirinha : nil
+  end
 
-
+  def nome_titular
+    titular ? titular.name : nil
+  end
   def titular?
     self.titular.nil?
   end
