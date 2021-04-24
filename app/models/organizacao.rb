@@ -12,6 +12,17 @@ class Organizacao < BaseModel
   has_many :condicoes, dependent: :destroy
   has_one :endereco, dependent: :destroy
   has_many :requests, through: :users
+  has_many :tickets
   accepts_nested_attributes_for :endereco,reject_if: :all_blank,  allow_destroy: true
   validates :cnpj, presence: true, cnpj: true
+    
+  def all_tickets
+    return tickets if subsidiarias.blank?
+    tickets_subs = []
+    subsidiarias.each do |sub|
+      tickets_subs += sub.tickets
+    end
+    tickets_subs + tickets
+  end
+
 end

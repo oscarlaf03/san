@@ -1,7 +1,7 @@
 class Ticket < BaseModel
+  belongs_to :organizacao
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
-  delegate :organizacao, to: :requestor, allow_nil: true
   validates :name_model, presence: true, constant: true
   validates :action, presence: true, inclusion: { in: %w( create update destroy),
   message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy'] "}
