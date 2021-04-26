@@ -13,6 +13,7 @@ json.beneficiario do
     json.organizacao_id beneficiario.organizacao_id
     json.carteirinha beneficiario.carteirinha
     json.nome_titular beneficiario.nome_titular
+    json.titular_id beneficiario.titular_id
     json.cargo beneficiario.cargo
     json.localidade beneficiario.endereco
     json.plano  beneficiario.plano
