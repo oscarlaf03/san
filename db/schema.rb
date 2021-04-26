@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_24_011709) do
+ActiveRecord::Schema.define(version: 2021_04_26_225745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "parentesco"
+    t.string "matricula"
     t.index ["confirmation_token"], name: "index_beneficiarios_on_confirmation_token", unique: true
     t.index ["email"], name: "index_beneficiarios_on_email", unique: true
     t.index ["organizacao_id"], name: "index_beneficiarios_on_organizacao_id"
@@ -164,6 +165,7 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
     t.string "nome_fantasia"
     t.string "inscricao_municipal"
     t.string "inscricao_estadual"
+    t.integer "matriz_id"
   end
 
   create_table "planos", force: :cascade do |t|
@@ -208,8 +210,9 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
     t.datetime "closed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.date "data_inclusao"
-    t.date "data_exclusao"
+    t.bigint "organizacao_id"
+    t.date "data_vigor"
+    t.index ["organizacao_id"], name: "index_tickets_on_organizacao_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -251,4 +254,5 @@ ActiveRecord::Schema.define(version: 2021_04_24_011709) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "organizacao_planos", "organizacoes"
   add_foreign_key "organizacao_planos", "planos"
+  add_foreign_key "organizacoes", "organizacoes", column: "matriz_id"
 end

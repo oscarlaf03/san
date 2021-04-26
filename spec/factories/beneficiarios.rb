@@ -5,6 +5,7 @@ FactoryBot.define do
     sobre_nome {Faker::Name.last_name  }
     email { " #{self.nome.parameterize}_#{self.sobre_nome.parameterize}_#{rand.to_s.gsub('.','')}@#{%w[ google gmail yahoo excite geopages geocites].sample}.#{%w[com br mx co tv inc dev net].sample}"}
     cpf { Faker::IDNumber.brazilian_citizen_number }
+    matricula { self.titular? ? Faker::Number.number(digits: 9) : nil}
     password {"123123"}
     organizacao
     endereco

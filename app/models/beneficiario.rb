@@ -8,7 +8,7 @@ class Beneficiario < BaseUser
   validates :genero ,presence: true
   validates :parentesco, allow_nil: true,  inclusion: { in: %w( conjugue filho),
   message: "%{value} não é uma parentesco validos, as parentesco validss são: ['conjugue', 'filho'] "}
-
+  validates :matricula, presence: true, if: :titular?
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

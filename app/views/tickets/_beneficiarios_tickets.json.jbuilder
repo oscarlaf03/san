@@ -9,6 +9,10 @@ json.beneficiario do
     json.perfil beneficiario.perfil
     json.email beneficiario.email
     json.parantesco beneficiario.parentesco
+    json.sexo beneficiario.sexo
+    json.cpf beneficiario.cpf
+    json.telefone beneficiario.telefone
+    json.admissao beneficiario.admissao
     json.organizacao beneficiario.organizacao.nome_fantasia
     json.organizacao_id beneficiario.organizacao_id
     json.carteirinha beneficiario.carteirinha
