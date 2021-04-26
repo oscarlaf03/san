@@ -15,7 +15,11 @@ class Organizacao < BaseModel
   has_many :tickets
   accepts_nested_attributes_for :endereco,reject_if: :all_blank,  allow_destroy: true
   validates :cnpj, presence: true, cnpj: true
-    
+
+  def org_group
+    subsidiarias + [self]
+  end
+
   def all_tickets
     return tickets if subsidiarias.blank?
     tickets_subs = []
