@@ -13,7 +13,11 @@ class User < BaseUser
   delegate :org_group, to: :organizacao, allow_nil: true
 
   def internal?
-    organizacao.nil? && self.persisted?
+    organizacao.nil?
+  end
+
+  def organizacao?
+    organizacao.present?
   end
 
   protected

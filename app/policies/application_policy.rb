@@ -64,9 +64,9 @@ class ApplicationPolicy
   end
 
   def only_org_users(record=@record)
-    return false if !user.kind_of?(User)
+    return false unless user.organizacao?
     org = org_or_nil(record)
-    org ? user.organizacao == org : false
+    org ? user.org_group.include?(org) : false
   end
 
 

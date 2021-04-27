@@ -16,7 +16,7 @@ class BaseUser < BaseModel
   end
 
   def organizacao?
-    self.kind_of?(User)  ? self.organizacao.present? : false
+    self.kind_of?(User)  ? self.organizacao? : false
   end
 
   def titular?
