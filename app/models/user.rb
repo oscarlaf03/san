@@ -20,6 +20,10 @@ class User < BaseUser
     organizacao.present?
   end
 
+  def org_group_ids
+    org_group.map(&:id)
+  end
+
   protected
 
   def password_required?

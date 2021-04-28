@@ -4,7 +4,7 @@ class OrganizacaoPolicy < ApplicationPolicy
       if user.internal? 
         scope.all
       elsif user.organizacao?
-        scope.where(id: user.organizacao_id)
+        scope.where(id: [user.org_group_ids])
       else
         raise Pundit::NotAuthorizedError, 'Ação não permitida'
       end

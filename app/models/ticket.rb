@@ -24,9 +24,6 @@ class Ticket < BaseModel
        end
     when 'create'
       element = constant.new(**parsed_params)
-      if element.attributes.keys.include?('organizacao_id')
-        element.organizacao_id = self.organizacao.id
-      end
        if element.save
         close_executed
        else

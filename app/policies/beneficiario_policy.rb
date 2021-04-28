@@ -4,7 +4,7 @@ class BeneficiarioPolicy < ApplicationPolicy
       if user.internal?
         scope.all
       elsif user.organizacao?
-        scope.where(organizacao_id: user.organizacao_id)
+        scope.where(organizacao_id: [user.org_group_ids])
       elsif user.titular?
         scope.where(id: user.id).or(scope.where(titular_id: user.id))
       elsif user.beneficiario?

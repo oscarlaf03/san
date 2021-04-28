@@ -71,7 +71,8 @@ RSpec.describe Api::V1::OrganizacoesController, type: :request do
 
     it "#index -- returns only orgs of that user " do
       get api_v1_organizacoes_path, {headers: user_header}
-      expect(JSON.parse(response.body).first["id"]).to eq(user.organizacao_id)
+      org_id = JSON.parse(response.body).first["id"]
+      expect(user.org_group_ids.include?(org_id)).to be true
     end
 
     it "#show -- gets 200 OK" do
@@ -117,7 +118,8 @@ RSpec.describe Api::V1::OrganizacoesController, type: :request do
 
     it "#index -- returns only orgs of that user " do
       get api_v1_organizacoes_path, {headers: user_header}
-      expect(JSON.parse(response.body).first["id"]).to eq(user.organizacao_id)
+      org_id = JSON.parse(response.body).first["id"]
+      expect(user.org_group_ids.include?(org_id)).to be true
     end
 
     it "#show -- Forbids seeing another org" do
