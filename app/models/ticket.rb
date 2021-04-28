@@ -1,5 +1,5 @@
 class Ticket < BaseModel
-  belongs_to :organizacao
+  belongs_to :organizacao, optional: true
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
   validates :name_model, presence: true, constant: true
@@ -7,9 +7,9 @@ class Ticket < BaseModel
   message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy'] "}
   validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
   validates :id_model, absence: true, if: :is_create_action?
+  validates :data_vigor, presence: true
   validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_existent_org_record, :can_execute
-
+  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute
 
 
   def execute!
@@ -28,12 +28,12 @@ class Ticket < BaseModel
         #TODO adicionar organizacao_id dentro do ticket?? ccomo controlar isso? precissa issto?
         # element.organizacao_id = self.organizacao.id #não passar a org do ticket por em quanto
       end
-       if element.save
+      if element.save
         close_executed
-       else
+      else
         copy_errors_from_instance
         false
-       end
+      end
     when 'destroy'
        if instance.destroy
         close_executed
@@ -62,10 +62,16 @@ class Ticket < BaseModel
 
   def constant
     name_model.constantize
+  rescue
   end
 
   def instance
-    constant.find(id_model)
+    constant.find(id_model) if constant
+  rescue ActiveRecord::RecordNotFound
+    msg = "O 'id_model':#{id_model} não existe para a clase #{name_model}"
+    unless errors.details[:id_model].present? && errors.details[:id_model].first[:error] == msg
+      errors.add(:id_model, msg )
+    end
   end
 
   def close_executed
@@ -74,14 +80,16 @@ class Ticket < BaseModel
 
   def parsed_params
     unless is_destroy_action?
-      JSON.parse(params).deep_symbolize_keys!
+      begin
+        JSON.parse(params).deep_symbolize_keys!
+      rescue
+      end
     end
   end
 
   def copy_errors_from_instance(object=instance)
-    errors.add( :params, object.errors.messages.to_s)
+    errors.add( :params, object.errors.messages.to_s) if object
   end
-
 
   def owner_is_internal_user
     if owner.present? && !owner.internal?
@@ -95,22 +103,14 @@ class Ticket < BaseModel
     end
   end
 
-  def same_org?
-    if instance.kind_of?(Organizacao)
-      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless instance == self.organizacao
-    elsif instance.respond_to?(:organizacao)
-      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless instance == self.organizacao unless instance.organizacao == self.organizacao
-    else
-      errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não response ao método de Organizacao falar com suporte técnico")
-    end
-  end
-
-  def points_to_existent_org_record
+  def points_to_allowed_org_record
     unless is_create_action?
-      begin
-        same_org?
-      rescue ActiveRecord::RecordNotFound
-        errors.add(:id_model, "O 'id_model':#{id_model} não existe para a clase #{name_model}")
+      if instance.kind_of?(Organizacao)
+        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless  self.requestor.org_group.include?(instance)
+      elsif instance.respond_to?(:organizacao)
+        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless self.requestor.org_group.include?(instance.organizacao)
+      elsif instance.present?
+        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não response ao método de Organizacao falar com suporte técnico")
       end
     end
   end
@@ -119,19 +119,17 @@ class Ticket < BaseModel
     unless is_destroy_action?
       case action
       when 'create'
-        object = constant.new(**parsed_params)
-        unless object.valid?
+        object = constant.new(**parsed_params) if constant && parsed_params
+        unless object && object.valid?
           copy_errors_from_instance(object)
         end
       when 'update'
-        object = instance.assign_some_attributes(**parsed_params)
-        unless object.valid?
+        object = instance.assign_some_attributes(**parsed_params) if instance && parsed_params
+        unless object && object.valid?
           copy_errors_from_instance(object)
         end
       end
     end
-  rescue ActiveRecord::RecordNotFound
-    errors.add(:id_model, "O 'id_model':#{id_model} não existe para a clase #{name_model}")
   end
 
 end
