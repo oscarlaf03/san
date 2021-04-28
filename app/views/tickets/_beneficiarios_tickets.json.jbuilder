@@ -14,6 +14,7 @@ json.beneficiario do
     json.estado_civil beneficiario.estado_civil
     json.nome_da_mae beneficiario.nome_da_mae
     json.cpf beneficiario.cpf
+    json.matricula beneficiario.matricula
     json.telefone beneficiario.telefone
     json.admissao beneficiario.admissao
     json.organizacao beneficiario.organizacao.nome_fantasia
