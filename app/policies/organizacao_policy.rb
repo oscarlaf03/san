@@ -32,7 +32,7 @@ class OrganizacaoPolicy < ApplicationPolicy
   end
 
   def beneficiarios?
-    show?
+    self.show?
   end
 
 
