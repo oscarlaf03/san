@@ -24,6 +24,10 @@ class Ticket < BaseModel
        end
     when 'create'
       element = constant.new(**parsed_params)
+      if element.attributes.keys.include?('organizacao_id')
+        #TODO adicionar organizacao_id dentro do ticket?? ccomo controlar isso? precissa issto?
+        # element.organizacao_id = self.organizacao.id #não passar a org do ticket por em quanto
+      end
        if element.save
         close_executed
        else
