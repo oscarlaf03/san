@@ -87,7 +87,25 @@ RSpec.describe Ticket, type: :model do
     it "Pointing to an object of another org non-create action" do
       other_org_user = user_with_organizacao
       ticket = build(:ticket, action: 'update', id_model:other_org_user.id, requestor: requestor, name_model:'User', params: {email: 'new_email_test@example.org'}.to_json )
-      expect(ticket.valid?).to be false
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:id_model)).to be true
+    end
+
+    it "Passing organizacao_id in params outside of usergroup" do
+      other_org_user = user_with_organizacao
+      params ={
+        email:  'created_via_ticket_process@example.com',
+        nome: 'nome via ticket',
+        sobre_nome: 'sobrenome via ticket creted',
+        cpf: Faker::IDNumber.brazilian_citizen_number,
+        # organizacao: org_user.organizacao,
+        genero: 'homem',
+        matricula: "1231231234",
+        organizacao_id: other_org_user.organizacao_id
+      }
+      ticket = build(:ticket, name_model: 'Beneficiario',action: 'create', requestor: org_user, params: params.to_json  )
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:params)).to be true
     end
 
   end
@@ -112,7 +130,6 @@ RSpec.describe Ticket, type: :model do
     end
 
     it "responds to the Organizacao the requestor belongs to" do
-      # org_user = user_with_organizacao
       ticket =  create(:ticket, requestor: org_user)
       expect(ticket.organizacao).to equal(org_user.organizacao)
     end
@@ -125,7 +142,7 @@ RSpec.describe Ticket, type: :model do
     end
   end
 
-  context "Instance methods" do
+  context "Executes properly" do
     let(:org_user) {user_with_organizacao}
 
 
@@ -143,8 +160,9 @@ RSpec.describe Ticket, type: :model do
         nome: 'nome via ticket',
         sobre_nome: 'sobrenome via ticket creted',
         cpf: Faker::IDNumber.brazilian_citizen_number,
-        # organizacao: org_user.organizacao,
         genero: 'homem',
+        matricula: "1231231234",
+        organizacao_id: org_user.organizacao_id
       }
       ticket = create(:ticket, name_model: 'Beneficiario',action: 'create', requestor: org_user, params: params.to_json  )
       ticket.execute!

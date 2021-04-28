@@ -1,5 +1,5 @@
 class Ticket < BaseModel
-  belongs_to :organizacao, optional: true
+  # belongs_to :organizacao, optional: true
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
   validates :name_model, presence: true, constant: true
@@ -9,9 +9,12 @@ class Ticket < BaseModel
   validates :id_model, absence: true, if: :is_create_action?
   validates :data_vigor, presence: true
   validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute
+  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
+  delegate :organizacao, to: :requestor
 
-    #TODO validate ticket uniqueness, improve/update ticket unit tests, test association of ticket
+    #TODO 
+    # validate ticket uniqueness, improve/update ticket unit tests, test association of ticket
+    
 
   def execute!
     return true if executed
@@ -88,6 +91,14 @@ class Ticket < BaseModel
     end
   end
 
+  def valid_organizacao_id_in_params
+    unless parsed_params.nil? || !parsed_params.has_key?(:organizacao_id)
+      unless requestor.org_group_ids.include?(parsed_params[:organizacao_id])
+        errors.add(:params, "a 'organizacao_id':#{parsed_params[:organizacao_id]} passada no params esta fora do grupo de organizações deste usuário")
+      end
+    end
+  end
+
   def copy_errors_from_instance(object=instance)
     errors.add( :params, object.errors.messages.to_s) if object
   end
@@ -107,9 +118,9 @@ class Ticket < BaseModel
   def points_to_allowed_org_record
     unless is_create_action?
       if instance.kind_of?(Organizacao)
-        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless  self.requestor.org_group.include?(instance)
+        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} pertence a uma Organizacão que esta fora do grupo de organizações do seu usuário") unless  self.requestor.org_group.include?(instance)
       elsif instance.respond_to?(:organizacao)
-        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não pertence a Organizacao do user atual") unless self.requestor.org_group.include?(instance.organizacao)
+        errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} pertence a uma Organizacão que esta fora do grupo de organizações do seu usuário") unless self.requestor.org_group.include?(instance.organizacao)
       elsif instance.present?
         errors.add(:id_model, "O 'id_model':#{id_model} para  #{name_model} não response ao método de Organizacao falar com suporte técnico")
       end
