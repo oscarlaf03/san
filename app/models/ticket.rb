@@ -11,6 +11,7 @@ class Ticket < BaseModel
   validates :params, presence: true, json: true,  unless: :is_destroy_action?
   validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute
 
+    #TODO validate ticket uniqueness, improve/update ticket unit tests, test association of ticket
 
   def execute!
     return true if executed
