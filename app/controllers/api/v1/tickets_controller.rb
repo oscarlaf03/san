@@ -11,9 +11,8 @@ class Api::V1::TicketsController < Api::V1::BaseController
   end
 
   def beneficiarios
-    # organizacao = Organizacao.find(params[:organizacao_id])
-    # authorize organizacao
-    skip_authorization
+    organizacao = Organizacao.find(params[:organizacao_id])
+    authorize organizacao
     @tickets = organizacao.requests.select{ |r| r.name_model == "Beneficiario"}
     render :beneficiarios
   end

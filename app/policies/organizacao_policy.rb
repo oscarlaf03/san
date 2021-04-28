@@ -32,7 +32,7 @@ class OrganizacaoPolicy < ApplicationPolicy
   end
 
   def beneficiarios?
-    internal_users_or_record_members_users
+    show?
   end
 
 
