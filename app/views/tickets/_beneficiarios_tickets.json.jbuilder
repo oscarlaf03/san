@@ -10,6 +10,9 @@ json.beneficiario do
     json.email beneficiario.email
     json.parantesco beneficiario.parentesco
     json.sexo beneficiario.sexo
+    json.data_nascimento beneficiario.data_nascimento
+    json.estado_civil beneficiario.estado_civil
+    json.nome_da_mae beneficiario.nome_da_mae
     json.cpf beneficiario.cpf
     json.telefone beneficiario.telefone
     json.admissao beneficiario.admissao
