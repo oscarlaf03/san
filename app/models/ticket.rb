@@ -13,8 +13,7 @@ class Ticket < BaseModel
   delegate :organizacao, to: :requestor
 
     #TODO 
-    # validate ticket uniqueness, improve/update ticket unit tests, test association of ticket
-    
+    # validate ticket uniqueness
 
   def execute!
     return true if executed
