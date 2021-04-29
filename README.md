@@ -108,7 +108,7 @@ Seguindo o exemplo do token retornado acima
 
 **exemplo curl de GET request de uma Organizacao**
 
-```json
+```curl
 curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 --header 'Authorization: Bearer 00JJOhrteK-pVaxDIPGiw-5MTiGUDOlrrnU2Go7HbtM'
 ```
@@ -159,7 +159,7 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 
 ## Confirmação da conta via token e persistência da senha
 
-### Novo endpoint POST `api/confirm-user` 
+### Confirmar novo usuário, `User` ou `Beneficiario` endpoint POST `api/confirm-user` 
 
 Este endpoint deve receber o token que foi enviado no email do usuário na hora de criara a sua conta junto com os valores de `password` e `password_confirmation` para validação da senha
 
@@ -170,9 +170,9 @@ Este endpoint deve receber o token que foi enviado no email do usuário na hora 
 ```json
 
 {
-    "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
+    "user_type":"user", // "user" ou "beneficiario" segundo sea o caso igual que no login
     "client_id": ID_DO_APP_COMO_NO_LOGIN,
-    "client_secret": ID_SECRET_DO_APP_COMO_NO_LOGIN
+    "client_secret": ID_SECRET_DO_APP_COMO_NO_LOGIN,
     "token": TOKEN_GERADO_POR_DEVISE_ENVIADO_NO_LINK_DO_EMAIL,
     "password": UM_PASSWORD_VALIDO,
     "password_confirmation": UM_PASSWORD_VALIDO
