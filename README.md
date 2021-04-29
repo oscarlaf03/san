@@ -17,7 +17,7 @@ heroku run ./show_oauth_app.sh -app {nome-do-app-no-heroku}
 
 Caso o seu app cliente não esteja presente pode criá-lo rodando:
 
-```
+```shell
 heroku run ./create_oauth_app.sh -app {nome-do-app-no-heroku}
 #  SAN_WEB_UID:  SOME_UID
 #  SAN_WEB_SECRET:  SOME_SECRET
@@ -25,7 +25,8 @@ heroku run ./create_oauth_app.sh -app {nome-do-app-no-heroku}
 ### Pegando um token
 
 Fazer um POST request no endpoint `/oauth/token` passando no json body
-```
+
+```json
 {
   "email": "email_do_user_registrado@email.com",
   "password": "123123",
@@ -55,7 +56,7 @@ Ambos casos de login deste tipo de usuário deve ser feito passando: `"user_type
 
 **exemplo curl de login de um User**
 
-```
+```json
 curl --location --request POST 'http://localhost:3000/oauth/token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -71,7 +72,7 @@ curl --location --request POST 'http://localhost:3000/oauth/token' \
 
 **exemplo curl login Beneficiario**
 
-```
+```json
 curl --location --request POST 'http://localhost:3000/oauth/token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -87,7 +88,7 @@ curl --location --request POST 'http://localhost:3000/oauth/token' \
 
 **exemplo de response**
 
-```
+```json
 {
     "access_token": "00JJOhrteK-pVaxDIPGiw-5MTiGUDOlrrnU2Go7HbtM",
     "token_type": "Bearer",
@@ -107,14 +108,14 @@ Seguindo o exemplo do token retornado acima
 
 **exemplo curl de GET request de uma Organizacao**
 
-```
+```json
 curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 --header 'Authorization: Bearer 00JJOhrteK-pVaxDIPGiw-5MTiGUDOlrrnU2Go7HbtM'
 ```
 
 **response**
 
-```
+```json
 200 OK
 ```
 ## Reset da senha
@@ -124,7 +125,7 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 #### Body
 
 **exemplo de body válido**
-```
+```json
 {
     "email": A_VALID_EMAIL_ADREESS,
     "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
@@ -136,14 +137,14 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 
 **exemplo response 200 OK**
 
-```
+```json
 {
     "message": "Instruções para resetar senha enviadas com sucesso ao email: allana@example.com"
 }
 ```
 
 **exemplo response 400 Bad Request**
-```
+```json
 {
     "message": "Problemas no seu chamado",
     "errors": [
@@ -166,7 +167,7 @@ Este endpoint deve receber o token que foi enviado no email do usuário na hora 
 #### Body
 
 **exemplo de body válido**
-```
+```json
 
 {
     "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
@@ -181,7 +182,7 @@ Este endpoint deve receber o token que foi enviado no email do usuário na hora 
 
 **exemplo response 200 OK**
 
-```
+```json
 {
     "message": "Conta  e senha de   de email test5_confirm@email.com confirmadas com sucesso"
 }
