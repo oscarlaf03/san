@@ -200,4 +200,16 @@ Este endpoint deve receber o token que foi enviado no email do usuário na hora 
     ]
 }
 ```
+### Grupos de  Organizações
+
+
+Para todos os usuários de  `user_scope` `organizacao` a rota de `api/v1/me` retorna no payload o atributo `org_group` que é uma lista de todas as organizações as que esse usuário tem acesso.
+
+Isto é para considerar o caso de uso de grupos empresarias onde um `user_organizacao`  de uma empresa matriz pode criar `Ticket` apontando   a um Objeto fora da sua própria Organizacão mas dentro do  grupo de empresas as quais ele tem acesso.
+
+O `user_organizacao` que pertence  a uma matriz pode atuar sobre objetos da matriz e das suas subisidiaras. 
+
+O `user_organizacao` que pertence  a uma subsidiria só pode atuar sobre objetos da subsidiaria. 
+
+O `user_group` para um `user_organizacao` de uma `Organizacao` com zero subsidirias é uma lista onde o único elemento é a `Organizacao` do `user_organizacao`  por tanto podem sempre passar como opção ao param de `organizacao_id` uma lista de todas as `id's` dentro do `user_group`
 
