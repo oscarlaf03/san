@@ -30,7 +30,7 @@ Fazer um POST request no endpoint `/oauth/token` passando no json body
 {
   "email": "email_do_user_registrado@email.com",
   "password": "123123",
-  "user_type": "user", # user_type pode ser "user" ou "beneficiario"
+  "user_type": "user", // user_type pode ser "user" ou "beneficiario"
   "grant_type": "password",
   "client_id": "A_VALID_CLIENT_ID",
   "client_secret":"A_VALID_CLIENT_SECRET"
@@ -56,7 +56,7 @@ Ambos casos de login deste tipo de usuário deve ser feito passando: `"user_type
 
 **exemplo curl de login de um User**
 
-```json
+```curl
 curl --location --request POST 'http://localhost:3000/oauth/token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -72,7 +72,7 @@ curl --location --request POST 'http://localhost:3000/oauth/token' \
 
 **exemplo curl login Beneficiario**
 
-```json
+```curl
 curl --location --request POST 'http://localhost:3000/oauth/token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
