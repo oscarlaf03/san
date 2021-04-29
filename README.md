@@ -200,7 +200,7 @@ Este endpoint deve receber o token que foi enviado no email do usuário na hora 
     ]
 }
 ```
-### Grupos de  Organizações
+## Grupos de  Organizações
 
 
 Para todos os usuários de  `user_scope` `organizacao` a rota de `api/v1/me` retorna no payload o atributo `org_group` que é uma lista de todas as organizações as que esse usuário tem acesso.
@@ -211,5 +211,43 @@ O `user_organizacao` que pertence  a uma matriz pode atuar sobre objetos da matr
 
 O `user_organizacao` que pertence  a uma subsidiria só pode atuar sobre objetos da subsidiaria. 
 
-O `user_group` para um `user_organizacao` de uma `Organizacao` com zero subsidirias é uma lista onde o único elemento é a `Organizacao` do `user_organizacao`  por tanto podem sempre passar como opção ao param de `organizacao_id` uma lista de todas as `id's` dentro do `user_group`
+O `user_group` para um `user_organizacao` de uma `Organizacao` com zero subsidirias é uma lista onde o único elemento é a `Organizacao` do `user_organizacao`  por tanto podem sempre passar como opção ao param de `organizacao_id` uma lista de todas as `id's` dentro do `org_group`
+
+**exemplo do payload /me**
+
+```json
+
+{
+    "id": 32,
+    "email": "cliente@cliente.com",
+    "remember_created_at": null,
+    "created_at": "2021-01-31T20:10:08.076-03:00",
+    "updated_at": "2021-04-28T18:58:38.391-03:00",
+    "organizacao_id": 14,
+    "phone": "",
+    "first_name": "usuario ",
+    "last_name": "teste",
+    "confirmed_at": "2021-02-20T21:56:52.460-03:00",
+    "confirmation_sent_at": null,
+    "user_scope": "organizacao",
+    "user_type": "user",
+    "full_name": "usuario  teste",
+    "org_group": [
+        {
+            "id": 14,
+            "slug": "Customizable",
+            "razao_social": "Fontes Comércio EIRELI",
+            "cnpj": "52999814000185",
+            "created_at": "2021-01-31T20:10:07.625-03:00",
+            "updated_at": "2021-04-13T13:01:17.744-03:00",
+            "nome_fantasia": "wqwqwesqweqweqwewqeqweqweqw",
+            "inscricao_municipal": "51716",
+            "inscricao_estadual": "91205191",
+            "matriz_id": null
+        }
+    ],
+    "url": "https://san-api-hmg.herokuapp.com/api/v1/users/32"
+}
+```
+
 
