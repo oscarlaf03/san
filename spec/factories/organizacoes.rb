@@ -9,3 +9,17 @@ FactoryBot.define do
     endereco
   end
 end
+
+def matriz_with_users_and_beneficiarios(number_of_subs=3)
+  matriz = FactoryBot.create(:organizacao)
+  number_of_subs.times do 
+    FactoryBot.create(:organizacao, matriz: matriz)
+  end
+  matriz.org_group.each do |org|
+    2.times do
+      FactoryBot.create(:user, organizacao: org)
+      FactoryBot.create(:beneficiario, organizacao: org)
+    end
+  end
+  matriz
+end

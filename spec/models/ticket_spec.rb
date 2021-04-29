@@ -23,6 +23,31 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.errors.details.has_key?(:params)).to be false
     end
 
+    it "Pointing to an object of a subsidiary org" do
+      matriz = matriz_with_users_and_beneficiarios
+      org_user = matriz.users.first
+      guinea_pig =  matriz.subsidiarias.sample.beneficiarios.sample
+      new_email =  'updated_via_ticket@example.com'
+      ticket = build(:ticket, name_model: 'Beneficiario', id_model: guinea_pig.id,action:'update', requestor: org_user, params: {email:new_email}.to_json)
+      expect(ticket.valid?).to be true
+    end
+
+    it "Passing organizacao_id in params inside of usergroup" do
+      matriz = matriz_with_users_and_beneficiarios
+      params ={
+        email:  'created_via_ticket_process@example.com',
+        nome: 'nome via ticket',
+        sobre_nome: 'sobrenome via ticket creted',
+        cpf: Faker::IDNumber.brazilian_citizen_number,
+        # organizacao: org_user.organizacao,
+        genero: 'homem',
+        matricula: "1231231234",
+        organizacao_id: matriz.subsidiarias.sample.id
+      }
+      ticket = build(:ticket, name_model: 'Beneficiario',action: 'create', requestor: matriz.users.sample, params: params.to_json  )
+      expect(ticket.valid?).to be true
+    end
+
   end
 
   context "Ticket should not be valid" do
@@ -84,7 +109,7 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.valid?).to be false
     end
 
-    it "Pointing to an object of another org non-create action" do
+    it "Pointing to an object of another org group non-create action" do
       other_org_user = user_with_organizacao
       ticket = build(:ticket, action: 'update', id_model:other_org_user.id, requestor: requestor, name_model:'User', params: {email: 'new_email_test@example.org'}.to_json )
       ticket.valid?
@@ -106,6 +131,17 @@ RSpec.describe Ticket, type: :model do
       ticket = build(:ticket, name_model: 'Beneficiario',action: 'create', requestor: org_user, params: params.to_json  )
       ticket.valid?
       expect(ticket.errors.details.has_key?(:params)).to be true
+    end
+
+    it "Pointing to an object of a different subsidiary org" do
+      matriz = matriz_with_users_and_beneficiarios
+      outra_matriz= matriz_with_users_and_beneficiarios
+      org_user = matriz.users.first
+      guinea_pig =  outra_matriz.subsidiarias.sample.beneficiarios.sample
+      new_email =  'updated_via_ticket@example.com'
+      ticket = build(:ticket, name_model: 'Beneficiario', id_model: guinea_pig.id,action:'update', requestor: org_user, params: {email:new_email}.to_json)
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:id_model)).to be true
     end
 
   end
