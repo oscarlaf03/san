@@ -128,7 +128,7 @@ curl --location --request GET 'http://localhost:3000/api/v1/organizacoes/5' \
 ```json
 {
     "email": A_VALID_EMAIL_ADREESS,
-    "user_type":"user", # "user" ou "beneficiario" seguno sea o caso igual que no login
+    "user_type":"user", // "user" ou "beneficiario" seguno sea o caso igual que no login
     "client_id": ID_DO_APP_COMO_NO_LOGIN,
     "client_secret": ID_SECRET_DO_APP_COMO_NO_LOGIN
 }
