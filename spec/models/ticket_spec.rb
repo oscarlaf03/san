@@ -6,8 +6,13 @@ RSpec.describe Ticket, type: :model do
     let(:internal_user) { create(:user)}
     let(:requestor) {user_with_organizacao}
 
+    it "with only description for a service action" do
+      ticket = Ticket.new(requestor: requestor, action: 'service', description: 'Some description')
+      expect(ticket.valid?).to be true
+    end
+
     it "without 'id_model' for 'create' action" do
-      ticket = build(:ticket, requestor: requestor, action: 'create')
+      ticket = build(:ticket, requestor: requestor, action: 'create') 
       expect(ticket.valid?).to be true
     end
 
@@ -52,6 +57,13 @@ RSpec.describe Ticket, type: :model do
 
   context "Ticket should not be valid" do
     let(:requestor) {user_with_organizacao}
+
+
+    it "without description for a service action" do
+      ticket = Ticket.new(requestor: requestor, action: 'service', description: nil)
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:description)).to be true
+    end
 
     it "without requestor" do
       ticket = build(:ticket, requestor: nil, action: 'create')

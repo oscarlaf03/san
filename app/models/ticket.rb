@@ -2,14 +2,19 @@ class Ticket < BaseModel
   # belongs_to :organizacao, optional: true
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
-  validates :name_model, presence: true, constant: true
-  validates :action, presence: true, inclusion: { in: %w( create update destroy),
-  message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy'] "}
-  validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
-  validates :id_model, absence: true, if: :is_create_action?
-  validates :data_vigor, presence: true
-  validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
+  validates :action, presence: true, inclusion: { in: %w( create update destroy service),
+    message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy service'] "}
+  validates :description, presence: true , if: :is_service_action?
+  validate :owner_is_internal_user, :requestor_is_organizacao_user
+  with_options unless: :is_service_action? do |ticket|
+    ticket.validates :name_model, presence: true, constant: true
+    ticket.validates :id_model, numericality:{ only_integer: true},  if: :check_id_model?
+    ticket.validates :id_model, absence: true, if: :is_create_action?
+    ticket.validates :data_vigor, presence: true
+    ticket.validates :params, presence: true, json: true,  if: :check_params?
+    ticket.validate  :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
+  end
+  
   delegate :organizacao, to: :requestor
 
     #TODO 
@@ -61,6 +66,18 @@ class Ticket < BaseModel
 
   def is_destroy_action?
     action == 'destroy'
+  end
+
+  def is_service_action?
+    action == 'service'
+  end
+
+  def check_id_model?
+    !is_create_action? && !is_service_action?
+  end
+
+  def check_params?
+    !is_destroy_action? && !is_service_action?
   end
 
   def constant
