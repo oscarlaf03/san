@@ -1,18 +1,23 @@
 class Ticket < BaseModel
-  # belongs_to :organizacao, optional: true
+  # belongs_to :organizacao, optional: true  #TODO analizar a associação direta de org e ticket ou não
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
-  validates :name_model, presence: true, constant: true
-  validates :action, presence: true, inclusion: { in: %w( create update destroy),
-  message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy'] "}
-  validates :id_model, numericality:{ only_integer: true},  unless: :is_create_action?
-  validates :id_model, absence: true, if: :is_create_action?
-  validates :data_vigor, presence: true
-  validates :params, presence: true, json: true,  unless: :is_destroy_action?
-  validate :owner_is_internal_user, :requestor_is_organizacao_user, :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
+  validates :action, presence: true, inclusion: { in: %w( create update destroy service),
+    message: "%{value} não é uma action valida, as ações validas são: ['create', 'update', 'destroy service'] "}
+  validates :description, presence: true , if: :is_service_action?
+  validate :owner_is_internal_user, :requestor_is_organizacao_user
+  with_options unless: :is_service_action? do |ticket|
+    ticket.validates :name_model, presence: true, constant: true
+    ticket.validates :id_model, numericality:{ only_integer: true},  if: :check_id_model?
+    ticket.validates :id_model, absence: true, if: :is_create_action?
+    ticket.validates :data_vigor, presence: true
+    ticket.validates :params, presence: true, json: true,  if: :check_params?
+    ticket.validate  :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
+  end
+
   delegate :organizacao, to: :requestor
 
-    #TODO 
+    #TODO
     # validate ticket uniqueness
 
   def execute!
@@ -27,10 +32,6 @@ class Ticket < BaseModel
        end
     when 'create'
       element = constant.new(**parsed_params)
-      if element.attributes.keys.include?('organizacao_id')
-        #TODO adicionar organizacao_id dentro do ticket?? ccomo controlar isso? precissa issto?
-        # element.organizacao_id = self.organizacao.id #não passar a org do ticket por em quanto
-      end
       if element.save
         close_executed
       else
@@ -44,6 +45,8 @@ class Ticket < BaseModel
         copy_errors_from_instance
         false
        end
+    when 'service'
+      close_executed
     end
   end
 
@@ -51,7 +54,6 @@ class Ticket < BaseModel
     return true if canceled
     self.update(canceled: true, open: false, closed_at: DateTime.now)
   end
-
 
   private
 
@@ -61,6 +63,18 @@ class Ticket < BaseModel
 
   def is_destroy_action?
     action == 'destroy'
+  end
+
+  def is_service_action?
+    action == 'service'
+  end
+
+  def check_id_model?
+    !is_create_action? && !is_service_action?
+  end
+
+  def check_params?
+    !is_destroy_action? && !is_service_action?
   end
 
   def constant
