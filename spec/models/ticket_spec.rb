@@ -44,7 +44,6 @@ RSpec.describe Ticket, type: :model do
         nome: 'nome via ticket',
         sobre_nome: 'sobrenome via ticket creted',
         cpf: Faker::IDNumber.brazilian_citizen_number,
-        # organizacao: org_user.organizacao,
         genero: 'homem',
         matricula: "1231231234",
         organizacao_id: matriz.subsidiarias.sample.id
@@ -58,6 +57,17 @@ RSpec.describe Ticket, type: :model do
   context "Ticket should not be valid" do
     let(:requestor) {user_with_organizacao}
 
+    it "without action" do
+      ticket = Ticket.new(requestor: requestor, action: nil)
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:action)).to be true
+    end
+
+    it "with and invalid action" do
+      ticket = build(:ticket,action: "INVALID_ACTION")
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:action)).to be true
+    end
 
     it "without description for a service action" do
       ticket = Ticket.new(requestor: requestor, action: 'service', description: nil)
@@ -67,7 +77,8 @@ RSpec.describe Ticket, type: :model do
 
     it "without requestor" do
       ticket = build(:ticket, requestor: nil, action: 'create')
-      expect(ticket.valid?).to be false
+      ticket.valid?
+      expect(ticket.errors.details.has_key?(:requestor)).to be true
     end
 
     it "with internal user as requestor" do
@@ -80,23 +91,13 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.valid?).to be false
     end
 
-    it "without name_model" do
+    it "without name_model for non-service action" do
       ticket = build(:ticket, name_model: nil, id_model: nil, action:'create')
       expect(ticket.valid?).to be false
     end
 
-    it "with unknown name_model constant" do
+    it "with unknown name_model constant for non-service action" do
       ticket = build(:ticket,name_model:"Perro", action: 'create', id_model: nil)
-      expect(ticket.valid?).to be false
-    end
-
-    it "without action" do
-      ticket = build(:ticket,action: nil)
-      expect(ticket.valid?).to be false
-    end
-
-    it "with and invalid action" do
-      ticket = build(:ticket,action: "INVALID_ACTION")
       expect(ticket.valid?).to be false
     end
 
@@ -135,7 +136,6 @@ RSpec.describe Ticket, type: :model do
         nome: 'nome via ticket',
         sobre_nome: 'sobrenome via ticket creted',
         cpf: Faker::IDNumber.brazilian_citizen_number,
-        # organizacao: org_user.organizacao,
         genero: 'homem',
         matricula: "1231231234",
         organizacao_id: other_org_user.organizacao_id
@@ -223,5 +223,12 @@ RSpec.describe Ticket, type: :model do
       ticket.execute!
       expect(User.find_by(id: guinea_pig.id)).to be nil
     end
+
+    it "#execute! -- service" do
+      ticket = Ticket.create(requestor:org_user, action: 'service', description:'some_description')
+      ticket.execute!
+      expect(Ticket.find(ticket.id).executed).to be true
+    end
+
   end
 end

@@ -1,5 +1,5 @@
 class Ticket < BaseModel
-  # belongs_to :organizacao, optional: true
+  # belongs_to :organizacao, optional: true  #TODO analizar a associação direta de org e ticket ou não
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
   belongs_to :requestor, class_name: 'User', foreign_key: 'requestor_id'
   validates :action, presence: true, inclusion: { in: %w( create update destroy service),
@@ -14,10 +14,10 @@ class Ticket < BaseModel
     ticket.validates :params, presence: true, json: true,  if: :check_params?
     ticket.validate  :points_to_allowed_org_record, :can_execute, :valid_organizacao_id_in_params
   end
-  
+
   delegate :organizacao, to: :requestor
 
-    #TODO 
+    #TODO
     # validate ticket uniqueness
 
   def execute!
@@ -32,10 +32,6 @@ class Ticket < BaseModel
        end
     when 'create'
       element = constant.new(**parsed_params)
-      if element.attributes.keys.include?('organizacao_id')
-        #TODO adicionar organizacao_id dentro do ticket?? ccomo controlar isso? precissa issto?
-        # element.organizacao_id = self.organizacao.id #não passar a org do ticket por em quanto
-      end
       if element.save
         close_executed
       else
@@ -49,6 +45,8 @@ class Ticket < BaseModel
         copy_errors_from_instance
         false
        end
+    when 'service'
+      close_executed
     end
   end
 
@@ -56,7 +54,6 @@ class Ticket < BaseModel
     return true if canceled
     self.update(canceled: true, open: false, closed_at: DateTime.now)
   end
-
 
   private
 
