@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_224255) do
+ActiveRecord::Schema.define(version: 2021_05_01_215236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,9 @@ ActiveRecord::Schema.define(version: 2021_04_29_224255) do
     t.bigint "beneficiario_id"
     t.bigint "organizacao_plano_id"
     t.string "carteirinha"
+    t.date "data_inclusao"
+    t.date "data_exclusao"
+    t.integer "vigencia"
     t.index ["beneficiario_id"], name: "index_beneficios_on_beneficiario_id"
     t.index ["organizacao_plano_id"], name: "index_beneficios_on_organizacao_plano_id"
   end
@@ -152,6 +155,8 @@ ActiveRecord::Schema.define(version: 2021_04_29_224255) do
     t.bigint "organizacao_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "premio_efetivo_cents", default: 0, null: false
+    t.integer "dia_corte"
     t.index ["organizacao_id"], name: "index_organizacao_planos_on_organizacao_id"
     t.index ["plano_id"], name: "index_organizacao_planos_on_plano_id"
   end
@@ -166,6 +171,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_224255) do
     t.string "inscricao_municipal"
     t.string "inscricao_estadual"
     t.integer "matriz_id"
+    t.boolean "prorata", default: false
   end
 
   create_table "planos", force: :cascade do |t|

@@ -41,6 +41,8 @@ gem "cocoon"
 gem 'rack-cors'
 gem "figaro"
 gem 'doorkeeper', '~> 5.4.0'
+gem 'money-rails'
+
 
 gem 'mailjet'
 
