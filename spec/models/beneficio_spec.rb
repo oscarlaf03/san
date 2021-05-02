@@ -4,9 +4,8 @@ RSpec.describe Beneficio, type: :model do
   context "Relationships" do
     let(:beneficio) {create(:beneficio)}
     let(:condicao) {create(:condicao)}
-    it "tem uma condicao through condicao_condicao" do
-      create(:beneficio_condicao, beneficio: beneficio, condicao: condicao)
-      expect(beneficio.condicao == condicao).to be true
+    it "tem uma condicao through condicao" do
+      expect(beneficio.condicao.kind_of?(Condicao)).to be true
     end
 
     it "Responde para plano retornando o Plano" do
