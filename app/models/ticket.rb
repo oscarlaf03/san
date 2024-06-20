@@ -149,7 +149,7 @@ class Ticket < BaseModel
           copy_errors_from_instance(object)
         end
       when 'update'
-        object = instance.assign_some_attributes(**parsed_params) if instance && parsed_params
+        object = instance.set_attributes(**parsed_params) if instance && parsed_params
         unless object && object.valid?
           copy_errors_from_instance(object)
         end

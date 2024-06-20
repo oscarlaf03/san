@@ -5,7 +5,7 @@ class BaseModel < ApplicationRecord
     self.new().attributes.keys.map{ |k| k.to_sym }
   end
 
-  def assign_some_attributes(**args)
+  def set_attributes(**args)
     attrs = self.attributes
     args.each{ |key, value| attrs[key.to_s]=value}
     self.assign_attributes(attrs)
